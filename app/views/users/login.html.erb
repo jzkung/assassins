@@ -1,0 +1,16 @@
+<% content_for :title, "Login!" %>
+
+<% if !@user.nil? %>
+	<% @user.errors.full_messages.each do |msg| %>
+  		<p><%= msg %></p>
+  	<% end %>
+<% end %>
+
+<%= form_for(@user, method: :post, url: {action: :post_login}) do |form| %>
+	<%= form.label(:login, "Login name: ") %>
+	<%= form.text_field(:login) %> <br>
+	<%= form.label(:password, "Password: ") %>
+	<%= form.password_field(:password) %><br>
+	<%= submit_tag("Login!") %><br>
+<% end %>
+<%= link_to "Register instead?", controller: :users, action: :new %>

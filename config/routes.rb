@@ -53,4 +53,6 @@ Assassins::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  get ':controller(/:action(/:id))'
+  post ':controller(/:action(/:id))'
 end

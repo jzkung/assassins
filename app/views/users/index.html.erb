@@ -1,0 +1,15 @@
+<% content_for :title, "All Users!" %>
+
+<h1>All users!</h1>
+
+<% @users.each do |user| %>
+	<p><%= user.full_name %></p>
+<% end %>
+
+<h1>All games!</h1>
+<% @games.each do |game| %>
+	<h2><%= game.name %></h2>
+	<% game.players.each do |player| %>
+		<p><%= player.full_name %>, Assassin: <%= player.assassin.full_name %>, Target: <%= player.target.full_name %></p>
+	<% end %>
+<% end %>
