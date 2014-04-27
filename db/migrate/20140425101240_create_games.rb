@@ -3,8 +3,12 @@ class CreateGames < ActiveRecord::Migration
     create_table :games do |t|
     	t.string :name
     	t.string :code
+      t.datetime :reg_start
+      t.datetime :reg_end
+      t.datetime :game_start
+      t.integer :num_alive
 
-        t.timestamps
+      t.timestamps
     end
   end
   def down

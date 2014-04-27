@@ -1,0 +1,15 @@
+<% content_for :title, "Join a Game!" %>
+
+<% if !@game.nil? %>
+	<% @game.errors.full_messages.each do |msg| %>
+  		<p><%= msg %></p>
+  	<% end %>
+<% end %>
+
+<%= form_for(@game, method: :post, url: {action: :post_join}) do |form| %>
+	<%= form.label(:code, "Enter game code: ") %>
+	<br>
+	<%= form.text_field(:code) %>
+	<br>
+	<%= submit_tag("Join a game!") %>
+<% end %>

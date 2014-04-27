@@ -36,15 +36,15 @@ class LoadData < ActiveRecord::Migration
   		user.save
   	end
 
-    kat.update(assassin: emily, target: princess)
-    emily.update(assassin: bradley, target: kat)
-    bradley.update(assassin: princess, target: emily)
-    princess.update(assassin: kat, target: bradley)
+    # kat.update(assassin: princess, target: princess)
+    # emily.update(assassin: bradley, target: kat)
+    # bradley.update(assassin: princess, target: emily)
+    # princess.update(assassin: kat, target: bradley)
 
-    kat.save(:validate => false)
-    emily.save(:validate => false)
-    bradley.save(:validate => false)
-    princess.save(:validate => false)
+    # kat.save(:validate => false)
+    # emily.save(:validate => false)
+    # bradley.save(:validate => false)
+    # princess.save(:validate => false)
   end
 
   def down

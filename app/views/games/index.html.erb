@@ -1,0 +1,6 @@
+<% content_for :title, "View Game" %>
+
+<h2><%= @game.name %></h2>
+<% @game.players.each do |player| %>
+	<p><%= player.full_name %></p>
+<% end %>
