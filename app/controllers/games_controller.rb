@@ -52,7 +52,8 @@ class GamesController < ApplicationController
 	end
 
 	def start
-		users = User.player
+		@game = Game.find(params[:id])
+		users = Array.new(@game.players)
 		num_users = users.length
 
 		first_index = Random.new.rand(0..num_users-1)
@@ -62,7 +63,6 @@ class GamesController < ApplicationController
 		prev_user = first_user
 
 		while num_users > 0
-			prev_user.update(game: @game)
 			curr_index = Random.new.rand(0..num_users-1)
 			curr_user = users[curr_index]	
 			users.delete_at(curr_index)
@@ -74,7 +74,6 @@ class GamesController < ApplicationController
 			prev_user = curr_user
 		end
 		
-		curr_user.update(game: @game)
 		curr_user.update(target: first_user)
 		first_user.update(assassin: curr_user)
 		curr_user.save(:validate => false)

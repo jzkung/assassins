@@ -5,6 +5,6 @@
 <h1>All users!</h1>
 <% pass = "test" %>
 <% @users.each do |user| %>
-	<p><%= user.full_name %>
+	<p><%= user.full_name %>, <%= user.game_id %>
 	</p>
 <% end %>

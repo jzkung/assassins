@@ -1,0 +1,13 @@
+<% content_for :title, "Start Game!" %>
+
+<% if !@game.nil? %>
+	<% @game.errors.full_messages.each do |msg| %>
+  		<p><%= msg %></p>
+  	<% end %>
+<% end %>
+
+<% @game.players.each do |user| %>
+	<%= user.full_name %>, Target: <%= user.target.full_name %>, Assassin: <%= user.assassin.full_name %>
+	<br>
+<% end %>
+<br>
