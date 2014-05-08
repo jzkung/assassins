@@ -20,17 +20,7 @@ class User < ActiveRecord::Base
 		"#{first_name} #{last_name}"
 	end
 
-	def password
-		@password
-	end
-
-	def password=(password)
-		@password = password
-		self.salt = rand()
-		self.password_digest = Digest::SHA1.hexdigest("#{password}#{self.salt}")
-	end
-
 	def valid_password?(candidate_pass)
-		Digest::SHA1.hexdigest("#{candidate_pass}#{self.salt}") == password_digest
+		candidate_pass == password_digest
 	end
 end
