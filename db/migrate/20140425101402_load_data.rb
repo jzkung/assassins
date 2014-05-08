@@ -1,4 +1,3 @@
-require 'digest/sha1'
 class LoadData < ActiveRecord::Migration
   def up
     # Create initial users.

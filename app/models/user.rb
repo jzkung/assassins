@@ -21,6 +21,6 @@ class User < ActiveRecord::Base
 	end
 
 	def valid_password?(candidate_pass)
-		candidate_pass == password_digest
+		candidate_pass == password
 	end
 end

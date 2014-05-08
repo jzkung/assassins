@@ -13,7 +13,6 @@ class UsersController < ApplicationController
     @user.email = params[:user][:email]
     @user.login = params[:user][:login]
     @user.phone_number = params[:user][:phone_number]
-    @user.salt = rand()
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
     @user.role = "player"
