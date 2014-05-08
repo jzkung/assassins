@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 20140425101402) do
   end
 
   create_table "kills", force: true do |t|
+    t.integer  "target_id"
+    t.integer  "user_id"
     t.boolean  "verified"
     t.string   "location"
     t.datetime "deadline"
@@ -56,6 +58,7 @@ ActiveRecord::Schema.define(version: 20140425101402) do
     t.string   "password_digest"
     t.string   "role"
     t.string   "status"
+    t.string   "kill_code"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

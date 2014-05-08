@@ -1,0 +1,11 @@
+<% content_for :title, "View Your Kills!" %>
+
+<% if !session[:current_user_id].nil? %>
+	<% @kills.each do |kill| %>
+		Assassin: <%= @current_user.full_name %> <br>
+		Target: <%= kill.target.full_name %><br>
+		Confirmed: <%= kill.verified %>
+	<% end %>
+<% else %>
+	You need to log in to view your kills! <%= link_to "Login!", controller: :users, action: :login %>
+<% end %>

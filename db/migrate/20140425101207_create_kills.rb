@@ -1,6 +1,8 @@
 class CreateKills < ActiveRecord::Migration
   def up
     create_table :kills do |t|
+      t.belongs_to :target
+      t.belongs_to :user
     	t.boolean :verified
     	t.string :location
     	t.datetime :deadline

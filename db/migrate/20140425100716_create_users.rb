@@ -9,11 +9,11 @@ class CreateUsers < ActiveRecord::Migration
       t.string :email
       t.string :login
       t.string :phone_number
-      t.float :salt
-      t.string :password_digest
+      t.string :password
 
       t.string :role # e.g. admin, mod, player
       t.string :status # e.g. alive, dead
+      t.string :kill_code
 
       t.timestamps
     end

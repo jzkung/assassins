@@ -9,32 +9,22 @@ class LoadData < ActiveRecord::Migration
 
     salt = rand()
     pass = "test"
-    simon = User.new(:first_name => "Simon", :last_name => "Shachter", :email => "simonys@stanford.edu", :login => "simon", :phone_number => "6505751462", :role => "admin", :status => "alive")
+    simon = User.new(:first_name => "Simon", :last_name => "Shachter", :email => "simonys@stanford.edu", :login => "simon", :phone_number => "6505751462", :role => "admin", :status => "alive", :password => pass)
     simon.save(:validate => false)
-    jessica = User.new(:first_name => "Jessica", :last_name => "Kung", :email => "jzkung@stanford.edu", :login => "jessica", :phone_number => "6503916448", :role => "admin", :status => "alive")
+    jessica = User.new(:first_name => "Jessica", :last_name => "Kung", :email => "jzkung@stanford.edu", :login => "jessica", :phone_number => "6503916448", :role => "admin", :status => "alive", :password => pass)
     jessica.save(:validate => false)
-    kat = User.new(:first_name => "Kat", :last_name => "Phan", :email => "kxphan@stanford.edu", :login => "kat", :phone_number => "6505751434", :role => "player", :status => "alive")
+    kat = User.new(:first_name => "Kat", :last_name => "Phan", :email => "kxphan@stanford.edu", :login => "kat", :phone_number => "6505751434", :role => "player", :status => "alive", :kill_code => "kill", :password => pass)
     kat.game = game1
     kat.save(:validate => false)
-    emily = User.new(:first_name => "Emily", :last_name => "Nguyen", :email => "emily@stanford.edu", :login => "emily", :phone_number => "6503916423", :role => "player", :status => "alive")
+    emily = User.new(:first_name => "Emily", :last_name => "Nguyen", :email => "emily@stanford.edu", :login => "emily", :phone_number => "6503916423", :role => "player", :status => "alive", :kill_code => "kill", :password => pass)
     emily.game = game1
     emily.save(:validate => false)
-    bradley = User.new(:first_name => "Bradley", :last_name => "Wo", :email => "bwo@stanford.edu", :login => "bradley", :phone_number => "6505751412", :role => "player", :status => "alive")
+    bradley = User.new(:first_name => "Bradley", :last_name => "Wo", :email => "bwo@stanford.edu", :login => "bradley", :phone_number => "6505751412", :role => "player", :status => "alive", :kill_code => "kill", :password => pass)
     bradley.game = game1
     bradley.save(:validate => false)
-    princess = User.new(:first_name => "Princess", :last_name => "Umodu", :email => "princess@stanford.edu", :login => "princess", :phone_number => "6503916426", :role => "player", :status => "alive")
+    princess = User.new(:first_name => "Princess", :last_name => "Umodu", :email => "princess@stanford.edu", :login => "princess", :phone_number => "6503916426", :role => "player", :status => "alive", :kill_code => "kill", :password => pass)
     princess.game = game1
     princess.save(:validate => false)
-
-    User.all.each do |user|
-		user.update_attribute :salt, rand()
-		user.save
-	end
-
-	User.all.each do |user|
-  		user.update_attribute :password_digest, Digest::SHA1.hexdigest("#{pass}#{user.salt}")
-  		user.save
-  	end
 
     # kat.update(assassin: princess, target: princess)
     # emily.update(assassin: bradley, target: kat)
