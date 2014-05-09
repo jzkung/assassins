@@ -1,6 +1,8 @@
-<% content_for :title, "View Game" %>
+<% content_for :title, "View All Games" %>
 
-<h2><%= @game.name %></h2>
-<% @game.players.each do |player| %>
-	<p><%= player.full_name %></p>
+<% @games.each do |game| %>
+	<h3><%= game.name %></h3>
+	<% game.players.each do |player| %>
+		<p><%= player.full_name %></p>
+	<% end %>
 <% end %>

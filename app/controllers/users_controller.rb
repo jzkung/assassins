@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
   def new
-    @user = User.new
+    @user = User.find_by(login: "jessica")
+    UserMailer.welcome_email(@user).deliver
   end
 
   def create
+
     @user = User.new
     @user.first_name = params[:user][:first_name]
 
@@ -18,6 +20,7 @@ class UsersController < ApplicationController
     @user.role = "player"
     @user.status = "alive"
     if @user.save then
+      UserMailer.welcome_email(@user).deliver
       redirect_to controller: :users, action: :login
     else
       render "new"
