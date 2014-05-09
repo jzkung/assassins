@@ -18,6 +18,10 @@
 <% else %>
 	<%= link_to "Login!", controller: :users, action: :login %>
 <% end %>
+<%= link_to "Join Game", controller: :games, action: :join %>
+<%= link_to "New Game", controller: :games, action: :new %>
+<%= link_to "Report Kill", controller: :kills, action: :report %>
+<%= link_to "Kill History", controller: :kills, action: :history %>
 </p>
 
 
