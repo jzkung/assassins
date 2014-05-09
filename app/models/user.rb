@@ -23,4 +23,8 @@ class User < ActiveRecord::Base
 	def valid_password?(candidate_pass)
 		candidate_pass == password
 	end
+
+	def valid_kill_code?(kill_code_in)
+		kill_code_in == kill_code
+	end
 end

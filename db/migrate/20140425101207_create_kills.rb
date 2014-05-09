@@ -3,6 +3,7 @@ class CreateKills < ActiveRecord::Migration
     create_table :kills do |t|
       t.belongs_to :target
       t.belongs_to :user
+      t.string :code
     	t.boolean :verified
     	t.string :location
     	t.datetime :deadline

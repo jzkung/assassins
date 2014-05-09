@@ -1,4 +1,9 @@
 class KillsController < ApplicationController
+  
+  def new
+    @kill = Kill.new
+  end
+
   def history
     if !session[:current_user_id].nil?
       @current_user = User.find(session[:current_user_id])
@@ -6,30 +11,48 @@ class KillsController < ApplicationController
     end
   end
 
+  def create
+      if !session[:current_user_id].nil?
+        @kill = Kill.new
+        @current_user = User.find(session[:current_user_id])
+        @kill.target = @current_user.target
+        @kill.user = @current_user
+        @kill.code = params[:kill][:code]
+        @kill.verified = false
+        # Not yet @kill.location = params[:kill][:location]
+        # I don't think we need this? @kill.deadline =
+        @kill.time_killed = DateTime.now.utc
+        if @kill.save then
+          redirect_to controller: :users, action: :index
+        else
+          render "new"
+        end
+      else
+        @kills.errors.add(login: ": You need to input a kill code to report a kill")
+      end
+
+  end
+
   def report
     @kill = Kill.new
   end
 
   def post_report
-  	@user = User.find_by(login: params[:user][:login])
-    if (params[:user][:login].blank?)
-      @user = User.new
-      @user.errors.add(:login, ": You need to enter a login name! Please try again!")
-      render "login"
-  	elsif !@user.nil?
-      if @user.valid_password?(params[:user][:password])
-    		session[:current_user_id] = @user.id
-    		redirect_to controller: :users, action: :index
-      else
-        @user = User.new
-        @user.errors.add(:password, ": Your password is wrong! Please try again!")
-        render "login"
+    @kill = Kill.new
+    if !session[:current_user_id].nil?
+      @current_user = User.find(session[:current_user_id])
+      @target = @current_user.target
+      if params[:kill][:code].blank?
+        @kills.errors.add(login: ": You need to input a kill code to report a kill")
       end
-  	else
-      @user = User.new
-      @user.errors.add(:login, ": Login name does not exist! Please try again!")
-  		render "login"
-  	end
+      if !@target.valid_kill_code?(params[:kill][:code])
+        @kills.errors.add(code: ": Incorrect Kill Code")
+      else
+        @kill.verified = true
+      end
+    else
+      @user.errors.add(:login, ": You need to be logged in to report a kill")
+    end
   end
   
   def login

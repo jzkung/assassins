@@ -1,31 +1,16 @@
-<% content_for :title, "New Game!" %>
+<% content_for :title, "Report a Kill!" %>
 
-<% if !@game.nil? %>
-	<% @game.errors.full_messages.each do |msg| %>
+<% if !@kill.nil? %>
+	<% @kill.errors.full_messages.each do |msg| %>
   		<p><%= msg %></p>
   	<% end %>
 <% end %>
 
-<%= form_for(@game, method: :post, url: {action: :create}) do |form| %>
-	<%= form.label(:name, "Game name: ") %>
-	<br>
-	<%= form.text_field(:name) %>
-	<br>
-	<%= form.label(:code, "Game code: ") %>
+
+<%= form_for(@kill, method: :post, url: {action: :create}) do |form| %>
+	<%= form.label(:code, "Target's Kill Code: ") %>
 	<br>
 	<%= form.text_field(:code) %>
 	<br>
-	<%= form.label(:reg_start, "Registration start: ") %>
-	<br>
-	<%= form.datetime_local_field(:reg_start) %>
-	<br>
-	<%= form.label(:reg_end, "Registration end: ") %>
-	<br>
-	<%= form.datetime_local_field(:reg_end) %>
-	<br>
-	<%= form.label(:game_start, "Game start: ") %>
-	<br>
-	<%= form.datetime_local_field(:game_start) %>
-	<br>
-	<%= submit_tag("Create new game!") %>
+	<%= submit_tag("Report Your Kill!") %>
 <% end %>
