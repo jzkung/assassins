@@ -15,6 +15,8 @@ class KillsController < ApplicationController
       if !session[:current_user_id].nil?
         @kill = Kill.new
         @current_user = User.find(session[:current_user_id])
+        #@kill.update(target: @current_user.target);
+        #@kill.save(:validate => false)
         @kill.target = @current_user.target
         @kill.user = @current_user
         @kill.code = params[:kill][:code]
@@ -49,6 +51,14 @@ class KillsController < ApplicationController
         @kills.errors.add(code: ": Incorrect Kill Code")
       else
         @kill.verified = true
+        @nxt_target = @current_user.target.target
+        @current_user.update(target: @nxt_target)
+        @current_user.save(:validate => false)
+        @nxt_target.update(assassin: @current_user)
+        @nxt_target.save(:validate => false)
+        @current_user.target.update(status: "dead")
+        @current_user.target.save(:validate => false)
+        # How do we want to represent the killed person's user stuff
       end
     else
       @user.errors.add(:login, ": You need to be logged in to report a kill")
