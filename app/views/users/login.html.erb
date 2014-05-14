@@ -1,10 +1,6 @@
 
-<div class="right hero-unit">
+<% content_for :title, "Login!" %>
 
-		<% content_for :title, "Login!" %>
-		<h2>Login!</h2>
-
-<h3>
 <% if !@user.nil? %>
 	<% @user.errors.full_messages.each do |msg| %>
   		<p><%= msg %></p>
@@ -16,11 +12,8 @@
 	<%= form.text_field(:login) %> <br>
 	<%= form.label(:password, "Password: ") %>
 	<%= form.password_field(:password) %><br>
-	<input name="commit" type="submit" value="Login!" class="btn btn-primary">
-	<!--<button type="button" class="btn btn-primary">
-		<%= submit_tag("Login!") %>
-	</button>-->
-<% end %> </h3>
-<h4><%= link_to "Register instead?", controller: :users, action: :new %></h4>
+	
+	<%= submit_tag("Login!") %>
+<% end %>
 
-</div>
+<%= link_to "Register instead?", controller: :users, action: :new %>

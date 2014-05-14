@@ -39,7 +39,10 @@
 	<br>
 	<br>
 	<div class="container" role="main">
-		<%= yield %>
+		<div class="right hero-unit">
+			<h2><%= yield(:title) %></h2>
+			<%= yield %>
+		</div>
 	</div>
 
 </body>
