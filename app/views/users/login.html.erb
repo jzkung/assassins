@@ -1,4 +1,9 @@
-<% content_for :title, "Login!" %>
+<div class="right hero-unit">
+
+	<% content_for :title, "Login!" %>
+	<h1>Login!</h1>
+
+</div>
 
 <% if !@user.nil? %>
 	<% @user.errors.full_messages.each do |msg| %>
