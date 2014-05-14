@@ -8,23 +8,20 @@
 
 <%= form_for(@game, method: :post, url: {action: :create}) do |form| %>
 	<%= form.label(:name, "Game name: ") %>
-	<br>
 	<%= form.text_field(:name) %>
-	<br>
 	<%= form.label(:code, "Game code: ") %>
-	<br>
 	<%= form.text_field(:code) %>
-	<br>
+	
 	<%= form.label(:reg_start, "Registration start: ") %>
-	<br>
+	
 	<%= form.datetime_local_field(:reg_start) %>
-	<br>
+	
 	<%= form.label(:reg_end, "Registration end: ") %>
-	<br>
+	
 	<%= form.datetime_local_field(:reg_end) %>
-	<br>
+	
 	<%= form.label(:game_start, "Game start: ") %>
-	<br>
+	
 	<%= form.datetime_local_field(:game_start) %>
 	<br>
 	<%= submit_tag("Create new game!") %>

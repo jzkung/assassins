@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def new
     @user = User.find_by(login: "jessica")
-    UserMailer.welcome_email(@user).deliver
+    #UserMailer.welcome_email(@user).deliver
   end
 
   def create

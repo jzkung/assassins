@@ -8,7 +8,6 @@
 
 <%= form_for(@game, method: :post, url: {action: :post_join}) do |form| %>
 	<%= form.label(:code, "Enter game code: ") %>
-	<br>
 	<%= form.text_field(:code) %>
 	<br>
 	<%= submit_tag("Join a game!") %>

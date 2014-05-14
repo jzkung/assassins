@@ -11,3 +11,66 @@
  *= require_self
  *= require_tree .
  */
+a:link {
+	font-size: 15px;
+}
+
+a:hover {
+	font-size: 15px;
+}
+
+label {
+	font-size: 24.5px;
+}
+
+input[type="submit"]:hover {
+	background-image: none;
+}
+
+input[type="submit"] {
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #006ccc;
+  background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+  background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+  background-image: linear-gradient(to bottom, #0088cc, #0044cc);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF0088CC', endColorstr='#FF0044CC', GradientType=0);
+  border-color: #0044cc #0044cc #002a80;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #0044cc;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  -webkit-writing-mode: horizontal-tb;
+  letter-spacing: normal;
+word-spacing: normal;
+text-transform: none;
+text-indent: 0px;
+-webkit-rtl-ordering: logical;
+-webkit-user-select: none;
+white-space: pre;
+box-sizing: border-box;
+align-items: flex-start;
+margin-top: 0px;
+font-weight: normal;
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+margin-left: 0;
+display: inline-block;
+padding: 4px 12px;
+margin-bottom: 0;
+font-size: 14px;
+line-height: 20px;
+text-align: center;
+vertical-align: middle;
+border-top-style: solid;
+border-top-width: 1px;
+border-radius: 4px;
+-webkit-border-radius: 4px;
+-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+-webkit-appearance: button;
+cursor: pointer;
+width: auto;
+}

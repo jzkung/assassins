@@ -9,7 +9,6 @@
 
 <%= form_for(@kill, method: :post, url: {action: :post_report}) do |form| %>
 	<%= form.label(:code, "Target's Kill Code: ") %>
-	<br>
 	<%= form.text_field(:code) %>
 	<br>
 	<%= submit_tag("Report Your Kill!") %>
