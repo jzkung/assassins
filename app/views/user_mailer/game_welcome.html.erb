@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>You've just joined the game: <%= @game.name %>!</h1>
+    <p>
+      Thank you for joining the game! Get excited to start.<br>
+    </p>
+    <p>
+      Please don't forget your kill code: <%= @user.kill_code %>!
+      Keep it secret, and, if you get killed provide it to your assassin
+      so they can confirm the kill.
+    </p>
+    <p>
+      Also, remember, the game begins at <%= @game.game_start%>.
+      So have your weapon and bunker ready.
+    </p>
+    <p>Thanks for for joining a game and Good Luck!</p>
+  </body>
+</html>

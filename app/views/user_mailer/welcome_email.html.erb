@@ -1,1 +1,17 @@
-Hello
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Welcome to Assassins, <%= @user.first_name %></h1>
+    <p>
+      You have successfully created an account for assassins,
+      your username is: <%= @user.login %>.<br>
+    </p>
+    <p>
+      Please login to the site with your username and sign up for a game!
+    </p>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>
