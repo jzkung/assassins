@@ -26,9 +26,8 @@ ActiveRecord::Schema.define(version: 20140425101402) do
 
   create_table "kills", force: true do |t|
     t.integer  "target_id"
-    t.integer  "user_id"
+    t.integer  "assassin_id"
     t.string   "code"
-    t.boolean  "verified"
     t.string   "location"
     t.datetime "deadline"
     t.datetime "time_killed"
