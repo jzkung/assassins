@@ -2,7 +2,6 @@
 
 <% content_for :title, "All Users!" %>
 
-<h1>All users!</h1>
 <% pass = "test" %>
 <% @users.each do |user| %>
 	<p><%= user.full_name %>, Game: <%= user.game_id %>

@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
 		"#{first_name} #{last_name}"
 	end
 
+	def is_admin?
+		role == 'admin'
+	end
+
 	def valid_password?(candidate_pass)
 		candidate_pass == password
 	end
