@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def new
-    @user = User.find_by(login: "jessica")
+    @user = User.new
     #UserMailer.welcome_email(@user).deliver
   end
 
