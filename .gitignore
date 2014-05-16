@@ -20,5 +20,5 @@
 /config/initializers/.DS_Store
 
 # Ignore gemfile
-Gemfile
-Gemfile.lock
+# Gemfile
+# Gemfile.lock
