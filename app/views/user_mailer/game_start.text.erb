@@ -1,0 +1,12 @@
+The game <%= @game.name %> has begun!
+========================================
+
+As of <%= DateTime.now %>, asssassins has begun.
+
+Your target is <%= @user.target.first_name%> <%= @user.target.last_name %>.
+
+Don't forget your kill code to give your assassing if you get killed: <%= @user.kill_code %>.
+
+You have 24 hours starting now, before you become a target for the terminators.
+
+Good Luck!
