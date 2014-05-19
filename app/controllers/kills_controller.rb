@@ -23,10 +23,20 @@ class KillsController < ApplicationController
         render "report"
       else
         @kill.target = @current_user.target
-        @kill.assassin = @current_user
+        @kill.assassin = @current_user.target.assassin
         @kill.code = params[:kill][:code]
         @kill.time_killed = DateTime.now.utc
-        if @kill.save then
+        if @kill.save(:validate => false) then
+          @current_user.target.status = "dead"
+          @current_user.update(target: @current_user.target.target)
+          @current_user.save(:validate => false)
+          @current_user.target.update(assassin: @current_user)
+          @current_user.target.save(:validate => false)
+          if (@current_user.target == @current_user) then
+            UserMailer.win_email(@current_user).deliver
+          else
+            UserMailer.kill_confirm(@kill, @current_user).deliver
+          end
           redirect_to controller: :kills, action: :history
         else
           @kill.errors.add(:code, ": Incorrect kill code")

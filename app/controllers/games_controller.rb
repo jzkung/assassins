@@ -39,18 +39,16 @@ class GamesController < ApplicationController
 		  	elsif !@game.nil?
 		  		@current_user.update(game: @game)
 		  		if @current_user.save(:validate => false) then
-
-		  			#Assign kill code - NOT TESTED
 		  			i = 4
 		  			kill_str = ""
 		  			while i > 0
 		  				kill_int = Random.new.rand(0..9)
-		  				kill_str = kill_str + kill_int
+		  				kill_str = kill_str + kill_int.to_s
 		  				i = i -1;
 		  			end
 		  			@current_user.kill_code = kill_str
 		  			@current_user.save(:validate => false)
-		  			UserMailer.game_welcome(@game, @user)
+		  			UserMailer.game_welcome(@game, @current_user).deliver
 			  		redirect_to controller: :users, action: :index
 
 			  	else
@@ -92,12 +90,11 @@ class GamesController < ApplicationController
 		curr_user.save(:validate => false)
 		first_user.save(:validate => false)
 
-		#Send Email - NOT TESTED
 		users = Array.new(@game.players)
 		num_users = users.length
 		while num_users > 0
 			@curr_user = users[num_users - 1]
-			UserMailer.game_start(@game, @curr_user)
+			UserMailer.game_start(@game, @curr_user).deliver
 			num_users = num_users - 1
 		end
 
