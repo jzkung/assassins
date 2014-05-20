@@ -25,9 +25,11 @@ class KillsController < ApplicationController
         @kill.target = @current_user.target
         @kill.assassin = @current_user.target.assassin
         @kill.code = params[:kill][:code]
-        @kill.time_killed = DateTime.now.utc
+        @kill.time_killed = DateTime.now
         if @kill.save(:validate => false) then
+          @current_user.term_date = DateTime.now.in(86400)
           @current_user.target.status = "dead"
+          @current_user.target.save(:validate => false)
           @current_user.update(target: @current_user.target.target)
           @current_user.save(:validate => false)
           @current_user.target.update(assassin: @current_user)

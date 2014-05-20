@@ -7,11 +7,12 @@ class GamesController < ApplicationController
 	    @game = Game.new
 	    @game.name = params[:game][:name]
 	    @game.code = params[:game][:code]
-	    @game.created_at = DateTime.now.utc
-	    @game.updated_at = DateTime.now.utc
+	    @game.created_at = DateTime.now
+	    @game.updated_at = DateTime.now
 	    @game.reg_start = params[:game][:reg_start]
 	    @game.reg_end = params[:game][:reg_end]
 	    @game.game_start = params[:game][:game_start]
+	    @game.is_started = false;
 	    if @game.save then
 	      redirect_to controller: :users, action: :index
 	    else
@@ -47,6 +48,8 @@ class GamesController < ApplicationController
 		  				i = i -1;
 		  			end
 		  			@current_user.kill_code = kill_str
+		  			@game.is_started = false
+		  			@game.save(:validate => false)
 		  			@current_user.save(:validate => false)
 		  			UserMailer.game_welcome(@game, @current_user).deliver
 			  		redirect_to controller: :users, action: :index
@@ -95,8 +98,12 @@ class GamesController < ApplicationController
 		while num_users > 0
 			@curr_user = users[num_users - 1]
 			UserMailer.game_start(@game, @curr_user).deliver
+			@curr_user.term_date = DateTime.now.in(86400)
+			@curr_user.save(:validate => false)
 			num_users = num_users - 1
 		end
+		@game.is_started = true;
+		@game.save(:validate => false)
 
 	end
 end

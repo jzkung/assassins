@@ -12,7 +12,7 @@
       You're next target is <b><%= @user.target.first_name %> <%= @user.target.last_name %></b>.
     </p>
     <p>
-      Be sure to kill your new target in the next 24 hours starting now - <%= DateTime.now %>, or the terminators will come after you.
+      Be sure to kill your new target in the next 24 hours starting now - <%= DateTime.now.to_formatted_s(:long_ordinal) %>, or the terminators will come after you.
     </p>
     <p>
       Lastly, don't forget your kill code <b><%= @user.kill_code %></b>!

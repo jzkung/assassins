@@ -7,6 +7,7 @@ class CreateGames < ActiveRecord::Migration
       t.datetime :reg_end
       t.datetime :game_start
       t.integer :num_alive
+      t.boolean :is_started
 
       t.timestamps
     end
