@@ -9,7 +9,7 @@ class UserMailer < ActionMailer::Base
   def game_welcome(game, user)
   	@user = user
   	@game = game
-  	mail(to: @user.email, subject: "You've Signed Up for a Game")
+  	mail(to: @user.email, subject: "You Signed Up for a Game")
   end
 
   def game_start(game, user)
@@ -21,12 +21,12 @@ class UserMailer < ActionMailer::Base
   def kill_confirm(kills, user)
   	@user = user
   	@kills = kills
-  	mail(to: @user.email, subject: "You're New Assignment")
+  	mail(to: @user.email, subject: "Your New Assignment")
   end
 
   def win_email(user)
   	@user = user
-  	mail(to: @user.email, subject: "You've Won!!")
+  	mail(to: @user.email, subject: "You Won!!")
   end
 
 end

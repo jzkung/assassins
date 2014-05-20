@@ -9,10 +9,13 @@
       You're doing well! Keep going!<br>
     </p>
     <p>
-      You're next target is <%= @user.target.first_name %> <%= @user.target.last_name %>.
+      You're next target is <b><%= @user.target.first_name %> <%= @user.target.last_name %></b>.
     </p>
     <p>
-      Be sure to kill your new target in the next 24 hours starting now! - <%= DateTime.now %>,
+      Be sure to kill your new target in the next 24 hours starting now - <%= DateTime.now %>, or the terminators will come after you.
+    </p>
+    <p>
+      Lastly, don't forget your kill code <b><%= @user.kill_code %></b>!
     </p>
     <p>Good Job and Good Luck!</p>
   </body>

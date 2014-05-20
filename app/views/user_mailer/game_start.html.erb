@@ -9,13 +9,13 @@
       As of <%= DateTime.now %>, asssassins has begun.<br>
     </p>
     <p>
-      Your target is <%= @user.target.first_name%> <%= @user.target.last_name %>
+      Your target is <b><%= @user.target.first_name%> <%= @user.target.last_name %></b>
     </p>
     <p>
-      Don't forget your kill code to give your assassing if you get killed: <%= @user.kill_code %>
+      Don't forget your kill code to give your assassin if you get killed: <b><%= @user.kill_code %></b>
     </p>
     <p>
-      You have 24 hours starting now, before you become a target for the terminators.
+      You have <b>24 hours</b> starting now, before you become a target for the terminators.
     </p>
     <p>Good Luck!</p>
   </body>
