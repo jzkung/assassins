@@ -48,9 +48,13 @@
 					<div class="span5">
 						<h3><p>To Be Terminated</p></h3>
 						<% @users.each do |user| %>
-							<% if !user.is_admin? && user.game_id == game.id%>
+							<% if !user.is_admin? && user.game_id == game.id && user.status == "alive"%>
 								<% if DateTime.now > user.term_date %>
 									<h4><p><%= user.first_name %> <%= user.last_name %> </p></h4>
+									<% url = "kills/terminate?id=" + user.id.to_s %>
+									<%= form_tag(url) do |f| %>
+  										<%= submit_tag "Terminate!" %> <br>
+									<% end %>
 								<% end %>
 							<% end %>
 						<% end %>
@@ -73,12 +77,15 @@
 		<p> Prepare yourself for the battle. </p>
 		<p> You will receive an email when the game begins and can check here periodically for its status. </p>
 		<p> And don't forget your kill code: <b><%= @current_user.kill_code %>. </p> </h4>
+
 <% elsif @current_user.status == "dead" %>
 	<h4><p> Thank you for playing assassins. </p>
 		<p> We wish you better luck in the next round. </p></h4>
+
 <% elsif @current_user.target == @current_user %>
 	<h3><p>YOU WON!!</p>
 		<p>CONGRATULATIONS!!</p></h3>
+		
 <% else %>
 	<h4><p> It is currently <%= DateTime.now.to_formatted_s(:long_ordinal) %>. </p>
 		<% if DateTime.now > @current_user.term_date %>

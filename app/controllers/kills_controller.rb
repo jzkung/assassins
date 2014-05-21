@@ -54,4 +54,23 @@ class KillsController < ApplicationController
   def report
     @kill = Kill.new
   end
+
+  def terminate
+    @term_user = User.find(params[:id])
+    @admin = User.find(session[:current_user_id])
+    @term = Kill.new
+    @term.assassin = @admin
+    @term.target = @term_user
+    @term.time_killed = DateTime.now
+    @term.save(:validate => false)
+    @term_user.target.update(assassin: @term_user.assassin)
+    @term_user.target.save(:validate => false)
+    @term_user.assassin.update(target: @term_user.target)
+    @term_user.assassin.save(:validate => false)
+    @term_user.status = "dead"
+    @term_user.save(:validate => false)
+    UserMailer.term_target(@term_user.assassin, @term).deliver
+    UserMailer.terminated(@term_user).deliver
+  end
+
 end

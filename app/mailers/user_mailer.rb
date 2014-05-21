@@ -29,4 +29,15 @@ class UserMailer < ActionMailer::Base
   	mail(to: @user.email, subject: "You Won!!")
   end
 
+  def terminated(user)
+    @user = user
+    mail(to: @user.email, subject: "You Have Been Terminated")
+  end
+
+  def term_target(user, kills)
+    @user = user
+    @kills = kills
+    mail(to: @user.email, subject: "You Target has been Terminated: New Target")
+  end
+
 end

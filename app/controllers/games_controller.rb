@@ -98,7 +98,8 @@ class GamesController < ApplicationController
 		while num_users > 0
 			@curr_user = users[num_users - 1]
 			UserMailer.game_start(@game, @curr_user).deliver
-			@curr_user.term_date = DateTime.now.in(86400)
+			#Number of seconds editted for testing.
+			@curr_user.term_date = DateTime.now.in(10) #86400
 			@curr_user.save(:validate => false)
 			num_users = num_users - 1
 		end
