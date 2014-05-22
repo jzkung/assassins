@@ -5,7 +5,7 @@ gem 'rails', '4.0.4'
 
 
 # Use postgres
-gem 'sqlite3'
+# gem 'sqlite3'
 gem 'pg'
 
 # Use SCSS with bootstrap for stylesheets
