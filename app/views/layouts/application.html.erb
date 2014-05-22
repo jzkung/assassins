@@ -27,7 +27,7 @@
 								<li><%= link_to "Manage Game", controller: :games, action: :manage %></li>
 								<li><%= link_to "Leaderboard", controller: :games, action: :leaderboard %></li>
 							<% end %>
-							<li><%= link_to "Manage Users", controller :users, action: :manage %></li>
+							<li><%= link_to "Manage Users", controller: :users, action: :manage %></li>
 						<% elsif @current_user.game_id.blank? %>:
 							<li><%= link_to "Join Game", controller: :games, action: :join %></li>
 						<% else %>
