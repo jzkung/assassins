@@ -11,6 +11,8 @@ class CreateUsers < ActiveRecord::Migration
       t.string :phone_number
       t.string :password
 
+      t.datetime :term_date
+
       t.string :role # e.g. admin, mod, player
       t.string :status # e.g. alive, dead
       t.integer :kill_code

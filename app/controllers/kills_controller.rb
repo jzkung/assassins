@@ -23,10 +23,22 @@ class KillsController < ApplicationController
         render "report"
       else
         @kill.target = @current_user.target
-        @kill.assassin = @current_user
+        @kill.assassin = @current_user.target.assassin
         @kill.code = params[:kill][:code]
-        @kill.time_killed = DateTime.now.utc
-        if @kill.save then
+        @kill.time_killed = DateTime.now
+        if @kill.save(:validate => false) then
+          @current_user.term_date = DateTime.now.in(86400)
+          @current_user.target.status = "dead"
+          @current_user.target.save(:validate => false)
+          @current_user.update(target: @current_user.target.target)
+          @current_user.save(:validate => false)
+          @current_user.target.update(assassin: @current_user)
+          @current_user.target.save(:validate => false)
+          if (@current_user.target == @current_user) then
+            UserMailer.win_email(@current_user).deliver
+          else
+            UserMailer.kill_confirm(@kill, @current_user).deliver
+          end
           redirect_to controller: :kills, action: :history
         else
           @kill.errors.add(:code, ": Incorrect kill code")
@@ -42,4 +54,23 @@ class KillsController < ApplicationController
   def report
     @kill = Kill.new
   end
+
+  def terminate
+    @term_user = User.find(params[:id])
+    @admin = User.find(session[:current_user_id])
+    @term = Kill.new
+    @term.assassin = @admin
+    @term.target = @term_user
+    @term.time_killed = DateTime.now
+    @term.save(:validate => false)
+    @term_user.target.update(assassin: @term_user.assassin)
+    @term_user.target.save(:validate => false)
+    @term_user.assassin.update(target: @term_user.target)
+    @term_user.assassin.save(:validate => false)
+    @term_user.status = "dead"
+    @term_user.save(:validate => false)
+    UserMailer.term_target(@term_user.assassin, @term).deliver
+    UserMailer.terminated(@term_user).deliver
+  end
+
 end

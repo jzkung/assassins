@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Your target has been terminated!</h1>
+    <p>
+      Your target, <%= @kills.target.first_name %>, has been terminated.<br>
+    </p>
+    <p>
+      Your next target is <b><%= @user.target.first_name %> <%= @user.target.last_name %></b>.
+    </p>
+    <p>
+      You do not get another 24 hours to kill <%= @user.target.first_name %>. <% if DateTime.now > @user.term_date %> You are currently a target for the terminators so be sure to kill someone to extend your deadline. <% else %> You have until <%= @user.term_date.to_formatted_s(:long_ordinal) %> until you become a target. <% end %>
+    </p>
+    <p>
+      Lastly, don't forget your kill code <b><%= @user.kill_code %></b>!
+    </p>
+    <p>Good Luck!</p>
+  </body>
+</html>

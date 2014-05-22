@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20140425101402) do
     t.datetime "reg_end"
     t.datetime "game_start"
     t.integer  "num_alive"
+    t.boolean  "is_started"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(version: 20140425101402) do
     t.string   "login"
     t.string   "phone_number"
     t.string   "password"
+    t.datetime "term_date"
     t.string   "role"
     t.string   "status"
     t.string   "kill_code"

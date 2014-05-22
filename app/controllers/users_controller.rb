@@ -9,8 +9,8 @@ class UsersController < ApplicationController
     @user.first_name = params[:user][:first_name]
 
     @user.last_name = params[:user][:last_name]
-    @user.created_at = DateTime.now.utc
-    @user.updated_at = DateTime.now.utc
+    @user.created_at = DateTime.now
+    @user.updated_at = DateTime.now
     @user.email = params[:user][:email]
     @user.login = params[:user][:login]
     @user.phone_number = params[:user][:phone_number]
@@ -56,6 +56,7 @@ class UsersController < ApplicationController
   def index
   	@users = User.all
     @games = Game.all
+    @kills = Kill.all
   end
 
   def logout

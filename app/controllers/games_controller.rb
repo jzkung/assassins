@@ -7,11 +7,12 @@ class GamesController < ApplicationController
 	    @game = Game.new
 	    @game.name = params[:game][:name]
 	    @game.code = params[:game][:code]
-	    @game.created_at = DateTime.now.utc
-	    @game.updated_at = DateTime.now.utc
+	    @game.created_at = DateTime.now
+	    @game.updated_at = DateTime.now
 	    @game.reg_start = params[:game][:reg_start]
 	    @game.reg_end = params[:game][:reg_end]
 	    @game.game_start = params[:game][:game_start]
+	    @game.is_started = false;
 	    if @game.save then
 	      redirect_to controller: :users, action: :index
 	    else
@@ -39,7 +40,20 @@ class GamesController < ApplicationController
 		  	elsif !@game.nil?
 		  		@current_user.update(game: @game)
 		  		if @current_user.save(:validate => false) then
+		  			i = 4
+		  			kill_str = ""
+		  			while i > 0
+		  				kill_int = Random.new.rand(0..9)
+		  				kill_str = kill_str + kill_int.to_s
+		  				i = i -1;
+		  			end
+		  			@current_user.kill_code = kill_str
+		  			@game.is_started = false
+		  			@game.save(:validate => false)
+		  			@current_user.save(:validate => false)
+		  			UserMailer.game_welcome(@game, @current_user).deliver
 			  		redirect_to controller: :users, action: :index
+
 			  	else
 			  		render "join"
 			  	end
@@ -78,6 +92,19 @@ class GamesController < ApplicationController
 		first_user.update(assassin: curr_user)
 		curr_user.save(:validate => false)
 		first_user.save(:validate => false)
+
+		users = Array.new(@game.players)
+		num_users = users.length
+		while num_users > 0
+			@curr_user = users[num_users - 1]
+			UserMailer.game_start(@game, @curr_user).deliver
+			#Number of seconds editted for testing.
+			@curr_user.term_date = DateTime.now.in(10) #86400
+			@curr_user.save(:validate => false)
+			num_users = num_users - 1
+		end
+		@game.is_started = true;
+		@game.save(:validate => false)
 
 	end
 end

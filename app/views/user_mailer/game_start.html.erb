@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>The game <%= @game.name %> has begun!</h1>
+    <p>
+      As of <%= DateTime.now.to_formatted_s(:long_ordinal) %>, asssassins has begun.<br>
+    </p>
+    <p>
+      Your target is <b><%= @user.target.first_name%> <%= @user.target.last_name %></b>
+    </p>
+    <p>
+      Don't forget your kill code to give your assassin if you get killed: <b><%= @user.kill_code %></b>
+    </p>
+    <p>
+      You have <b>24 hours</b> starting now, before you become a target for the terminators.
+    </p>
+    <p>Good Luck!</p>
+  </body>
+</html>
