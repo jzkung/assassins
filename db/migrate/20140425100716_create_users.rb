@@ -13,7 +13,7 @@ class CreateUsers < ActiveRecord::Migration
 
       t.string :role # e.g. admin, mod, player
       t.string :status # e.g. alive, dead
-      t.string :kill_code
+      t.integer :kill_code
 
       t.timestamps
     end
