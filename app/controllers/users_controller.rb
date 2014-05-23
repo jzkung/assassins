@@ -18,7 +18,6 @@ class UsersController < ApplicationController
     @user.password_confirmation = params[:user][:password_confirmation]
     @user.role = "player"
     @user.status = "alive"
-    @user.kill_code = rand(9999) + 1
     if @user.save then
       UserMailer.welcome_email(@user).deliver
       redirect_to controller: :users, action: :login

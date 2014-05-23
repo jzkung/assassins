@@ -3,8 +3,6 @@ class LoadData < ActiveRecord::Migration
     # Create initial users.
     down
 
-    game1 = Game.new(:name => "Name", :code => "Code")
-    game1.save(:validate => false)
     game2 = Game.new(:name => "GameTest5_19", :code => "game2")
     game2.save(:validate => false)
 
@@ -14,18 +12,18 @@ class LoadData < ActiveRecord::Migration
     simon.save(:validate => false)
     jessica = User.new(:first_name => "Jessica", :last_name => "Kung", :email => "jzkung@stanford.edu", :login => "jessica", :phone_number => "6503916448", :role => "admin", :status => "alive", :password => pass)
     jessica.save(:validate => false)
-    kat = User.new(:first_name => "Kat", :last_name => "Phan", :email => "kxphan@stanford.edu", :login => "kat", :phone_number => "6505751434", :role => "player", :status => "alive", :kill_code => "kat", :password => pass)
-    kat.game = game1
-    kat.save(:validate => false)
-    emily = User.new(:first_name => "Emily", :last_name => "Nguyen", :email => "emily@stanford.edu", :login => "emily", :phone_number => "6503916423", :role => "player", :status => "alive", :kill_code => "emily", :password => pass)
-    emily.game = game1
-    emily.save(:validate => false)
-    bradley = User.new(:first_name => "Bradley", :last_name => "Wo", :email => "bwo@stanford.edu", :login => "bradley", :phone_number => "6505751412", :role => "player", :status => "alive", :kill_code => "bradley", :password => pass)
-    bradley.game = game1
-    bradley.save(:validate => false)
-    princess = User.new(:first_name => "Princess", :last_name => "Umodu", :email => "princess@stanford.edu", :login => "princess", :phone_number => "6503916426", :role => "player", :status => "alive", :kill_code => "princess", :password => pass)
-    princess.game = game1
-    princess.save(:validate => false)
+    # kat = User.new(:first_name => "Kat", :last_name => "Phan", :email => "kxphan@stanford.edu", :login => "kat", :phone_number => "6505751434", :role => "player", :status => "alive", :kill_code => "kat", :password => pass)
+    # kat.game = game1
+    # kat.save(:validate => false)
+    # emily = User.new(:first_name => "Emily", :last_name => "Nguyen", :email => "emily@stanford.edu", :login => "emily", :phone_number => "6503916423", :role => "player", :status => "alive", :kill_code => "emily", :password => pass)
+    # emily.game = game1
+    # emily.save(:validate => false)
+    # bradley = User.new(:first_name => "Bradley", :last_name => "Wo", :email => "bwo@stanford.edu", :login => "bradley", :phone_number => "6505751412", :role => "player", :status => "alive", :kill_code => "bradley", :password => pass)
+    # bradley.game = game1
+    # bradley.save(:validate => false)
+    # princess = User.new(:first_name => "Princess", :last_name => "Umodu", :email => "princess@stanford.edu", :login => "princess", :phone_number => "6503916426", :role => "player", :status => "alive", :kill_code => "princess", :password => pass)
+    # princess.game = game1
+    # princess.save(:validate => false)
     simon2 = User.new(:first_name => "Simon2", :last_name => "Shachter2", :email => "simonys@stanford.edu", :login => "simon2", :phone_number => "6505751462", :role => "player", :status => "alive", :kill_code => "kill", :password => pass)
     simon2.game = game2
     simon2.save(:validate => false)

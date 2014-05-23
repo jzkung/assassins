@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20140425101402) do
     t.datetime "term_date"
     t.string   "role"
     t.string   "status"
-    t.integer  "kill_code"
+    t.string   "kill_code"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
