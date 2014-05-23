@@ -40,8 +40,10 @@
 					<% @kills.each do |kill| %>
 						<p>
 						Assassin: <%= kill.assassin.first_name %> <%= kill.assassin.last_name %>
-							Target: <%= kill.target.first_name %> <%= kill.target.last_name %>
-							Time Stamp: <%= kill.time_killed.to_formatted_s(:long_ordinal) %>
+						<br>
+						Target: <%= kill.target.first_name %> <%= kill.target.last_name %>
+						<br>
+						Time Stamp: <%= kill.time_killed.to_formatted_s(:long_ordinal) %>
 						</p>
 					<% end %>
 				</div>
