@@ -53,9 +53,8 @@ class UsersController < ApplicationController
   end
 
   def index
-  	@users = User.all
-    @games = Game.all
-    @kills = Kill.all
+    @past_games = Game.where(:has_ended => true)
+    @current_games = Game.where(:has_ended => false)
   end
 
   def logout

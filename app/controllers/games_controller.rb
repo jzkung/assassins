@@ -9,10 +9,9 @@ class GamesController < ApplicationController
 	    @game.code = params[:game][:code]
 	    @game.created_at = DateTime.now
 	    @game.updated_at = DateTime.now
-	    @game.reg_start = params[:game][:reg_start]
-	    @game.reg_end = params[:game][:reg_end]
-	    @game.game_start = params[:game][:game_start]
-	    @game.is_started = false;
+	    @game.is_started = false
+	    @game.has_ended = false
+	    @game.num_alive = 0
 	    if @game.save then
 	      redirect_to controller: :users, action: :index
 	    else
@@ -26,6 +25,10 @@ class GamesController < ApplicationController
 
 	def join
 		@game = Game.new
+	end
+
+	def leaderboard
+		@game = Game.all
 	end
 
 	def post_join
@@ -48,7 +51,8 @@ class GamesController < ApplicationController
 		  				i = i -1;
 		  			end
 		  			@current_user.kill_code = kill_str
-		  			@game.is_started = false
+		  			curr_num_alive = @game.num_alive
+		  			@game.num_alive = curr_num_alive + 1
 		  			@game.save(:validate => false)
 		  			@current_user.save(:validate => false)
 		  			UserMailer.game_welcome(@game, @current_user).deliver
@@ -66,45 +70,48 @@ class GamesController < ApplicationController
 	end
 
 	def start
+		@games = Game.all
 		@game = Game.find(params[:id])
 		users = Array.new(@game.players)
 		num_users = users.length
-
-		first_index = Random.new.rand(0..num_users-1)
-		first_user = users[first_index]	
-		users.delete_at(first_index)
-		num_users = num_users-1
-		prev_user = first_user
-
-		while num_users > 0
-			curr_index = Random.new.rand(0..num_users-1)
-			curr_user = users[curr_index]	
-			users.delete_at(curr_index)
-			curr_user.update(assassin: prev_user)
-			prev_user.update(target: curr_user)
-			curr_user.save(:validate => false)
-			prev_user.save(:validate => false)
+		if (num_users > 1)
+			first_index = Random.new.rand(0..num_users-1)
+			first_user = users[first_index]	
+			users.delete_at(first_index)
 			num_users = num_users-1
-			prev_user = curr_user
-		end
-		
-		curr_user.update(target: first_user)
-		first_user.update(assassin: curr_user)
-		curr_user.save(:validate => false)
-		first_user.save(:validate => false)
+			prev_user = first_user
 
-		users = Array.new(@game.players)
-		num_users = users.length
-		while num_users > 0
-			@curr_user = users[num_users - 1]
-			UserMailer.game_start(@game, @curr_user).deliver
-			#Number of seconds editted for testing.
-			@curr_user.term_date = DateTime.now.in(10) #86400
-			@curr_user.save(:validate => false)
-			num_users = num_users - 1
-		end
-		@game.is_started = true;
-		@game.save(:validate => false)
+			while num_users > 0
+				curr_index = Random.new.rand(0..num_users-1)
+				curr_user = users[curr_index]	
+				users.delete_at(curr_index)
+				curr_user.update(assassin: prev_user)
+				prev_user.update(target: curr_user)
+				curr_user.save(:validate => false)
+				prev_user.save(:validate => false)
+				num_users = num_users-1
+				prev_user = curr_user
+			end
+			
+			curr_user.update(target: first_user)
+			first_user.update(assassin: curr_user)
+			curr_user.save(:validate => false)
+			first_user.save(:validate => false)
 
+			users = Array.new(@game.players)
+			num_users = users.length
+			while num_users > 0
+				@curr_user = users[num_users - 1]
+				UserMailer.game_start(@game, @curr_user).deliver
+				#Number of seconds editted for testing.
+				@curr_user.term_date = DateTime.now.in(10) #86400
+				@curr_user.save(:validate => false)
+				num_users = num_users - 1
+			end
+			@game.is_started = true;
+			@game.save(:validate => false)
+		else
+			redirect_to :back, :flash => { :error => "You need to have at least two players to start a game!" }
+		end
 	end
 end

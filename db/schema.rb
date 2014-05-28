@@ -16,16 +16,15 @@ ActiveRecord::Schema.define(version: 20140425101402) do
   create_table "games", force: true do |t|
     t.string   "name"
     t.string   "code"
-    t.datetime "reg_start"
-    t.datetime "reg_end"
-    t.datetime "game_start"
     t.integer  "num_alive"
     t.boolean  "is_started"
+    t.boolean  "has_ended"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "kills", force: true do |t|
+    t.integer  "game_id"
     t.integer  "target_id"
     t.integer  "assassin_id"
     t.string   "code"

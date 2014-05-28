@@ -1,6 +1,7 @@
 
 <% content_for :title, "Login!" %>
 
+<div class="form-container">
 <% if !@user.nil? %>
 	<% @user.errors.full_messages.each do |msg| %>
   		<p><%= msg %></p>
@@ -16,3 +17,4 @@
 <br>
 
 <%= link_to "Register instead?", controller: :users, action: :new %>
+</div>
