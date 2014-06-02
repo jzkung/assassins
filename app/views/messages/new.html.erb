@@ -1,0 +1,15 @@
+<% content_for :title, "New Message!" %>
+
+<% if !@message.nil? %>
+	<% @message.errors.full_messages.each do |msg| %>
+  		<p><%= msg %></p>
+  	<% end %>
+<% end %>
+
+<div class="form-container">
+<%= form_for(@message, method: :post, url: {action: :create}) do |form| %>
+	<%= form.text_area(:content, :class => "form-control", :placeholder => "Your anonymous message... (ex. Imma kill you.)", size: "24x6") %>
+	<br>
+	<button class="btn btn-lg btn-primary btn-block" type="submit">Post Message</button>
+<% end %>
+</div>
