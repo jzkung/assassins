@@ -26,6 +26,7 @@ class KillsController < ApplicationController
         @kill.assassin = @current_user.target.assassin
         @kill.code = params[:kill][:code]
         @kill.time_killed = DateTime.now
+        @kill.game = @current_user.game
         if @kill.save(:validate => false) then
           @current_user.term_date = DateTime.now.in(86400)
           @current_user.target.status = "dead"
@@ -35,6 +36,7 @@ class KillsController < ApplicationController
           @current_user.target.update(assassin: @current_user)
           @current_user.target.save(:validate => false)
           if (@current_user.target == @current_user) then
+            @current_user.game.has_ended = true
             UserMailer.win_email(@current_user).deliver
           else
             UserMailer.kill_confirm(@kill, @current_user).deliver
@@ -62,6 +64,7 @@ class KillsController < ApplicationController
     @term.assassin = @admin
     @term.target = @term_user
     @term.time_killed = DateTime.now
+    @term.game = @term_user.game
     @term.save(:validate => false)
     @term_user.target.update(assassin: @term_user.assassin)
     @term_user.target.save(:validate => false)
@@ -69,7 +72,17 @@ class KillsController < ApplicationController
     @term_user.assassin.save(:validate => false)
     @term_user.status = "dead"
     @term_user.save(:validate => false)
-    UserMailer.term_target(@term_user.assassin, @term).deliver
+    @term_user.game.num_alive = @term_user.game.num_alive - 1
+    @term_user.save(:validate => false)
+
+    if (@term_user.game.num_alive == 1) then
+      @winner = @term_user.target
+      @term_user.game.has_ended = true
+      UserMailer.win_email(@winner).deliver
+    else
+      UserMailer.term_target(@term_user.assassin, @term).deliver
+    end
+    @term_user.game.save(:validate => false)
     UserMailer.terminated(@term_user).deliver
   end
 

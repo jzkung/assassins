@@ -6,10 +6,10 @@
   	<% end %>
 <% end %>
 
-
+<div class="form-container">
 <%= form_for(@kill, method: :post, url: {action: :post_report}) do |form| %>
-	<%= form.label(:code, "Target's Kill Code: ") %>
-	<%= form.text_field(:code) %>
+	<%= form.text_field(:code, :class => "form-control", :placeholder => "Target's kill code (e.g. 1234)") %>
 	<br>
-	<%= submit_tag("Report Your Kill!") %>
+	<button class="btn btn-lg btn-primary btn-block" type="submit">Report Kill</button>
 <% end %>
+</div>

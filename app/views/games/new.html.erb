@@ -6,23 +6,12 @@
   	<% end %>
 <% end %>
 
+<div class="form-container">
 <%= form_for(@game, method: :post, url: {action: :create}) do |form| %>
-	<%= form.label(:name, "Game name: ") %>
-	<%= form.text_field(:name) %>
-	<%= form.label(:code, "Game code: ") %>
-	<%= form.text_field(:code) %>
-	
-	<%= form.label(:reg_start, "Registration start: ") %>
-	
-	<%= form.datetime_local_field(:reg_start) %>
-	
-	<%= form.label(:reg_end, "Registration end: ") %>
-	
-	<%= form.datetime_local_field(:reg_end) %>
-	
-	<%= form.label(:game_start, "Game start: ") %>
-	
-	<%= form.datetime_local_field(:game_start) %>
+	<%= form.text_field(:name, :class => "form-control", :placeholder => "Game name (e.g. Best game ever!)") %>
 	<br>
-	<%= submit_tag("Create new game!") %>
+	<%= form.text_field(:code, :class => "form-control", :placeholder => "Game code (e.g. j-ro123)") %>
+	<br>
+	<button class="btn btn-lg btn-primary btn-block" type="submit">Create New Game</button>
 <% end %>
+</div>

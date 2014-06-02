@@ -1,6 +1,7 @@
 class CreateKills < ActiveRecord::Migration
   def up
     create_table :kills do |t|
+      t.belongs_to :game
       t.belongs_to :target
       t.belongs_to :assassin
       t.string :code

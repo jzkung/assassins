@@ -6,9 +6,10 @@
   	<% end %>
 <% end %>
 
+<div class="form-container">
 <%= form_for(@game, method: :post, url: {action: :post_join}) do |form| %>
-	<%= form.label(:code, "Enter game code: ") %>
-	<%= form.text_field(:code) %>
+	<%= form.text_field(:code, :class => "form-control", :placeholder => "Enter game code") %>
 	<br>
-	<%= submit_tag("Join a game!") %>
+	<button class="btn btn-lg btn-primary btn-block" type="submit">Join a Game</button>
 <% end %>
+</div>

@@ -7,7 +7,6 @@
 <% end %>
 
 <% @game.players.each do |user| %>
-	<%= user.full_name %>, Target: <%= user.target.full_name %>, Assassin: <%= user.assassin.full_name %>
-	<br>
+	<p><%= user.full_name %>, Target: <%= user.target.full_name %>, Assassin: <%= user.assassin.full_name %></p>
 <% end %>
 <br>
