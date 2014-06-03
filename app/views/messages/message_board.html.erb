@@ -1,0 +1,32 @@
+<% content_for :title, "Message Board!" %>
+
+<% if !session[:current_user_id].nil? %>
+	<% if @messages.nil? %>
+		There are no messages posted!
+		<br>
+		<%= link_to "Post a Message!", controller: :messages, action: :new %>
+	<% else %>
+		<br>
+		<% url = "new" %>
+		<%= form_tag(url) do |f| %>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Post a Message</button> <br>
+		<% end %><br>
+		<!-- This is great except that it posts the messages in the wrong order-->
+		<% @messages.each do |message| %> 
+			<% if !message.deleted? %>
+				<h6>Time: <%= message.post_date %></h6>
+				<b><%= message.content %></b><br>
+				<% if (User.find(session[:current_user_id])).is_admin? %>
+					<h6> Posted by: <%= message.player.full_name %></h6>
+					<% url = "delete?id=" + message.id.to_s %>
+					<%= form_tag(url) do |f| %>
+						<button class="btn btn-lg btn-primary btn-block" type="submit">Delete Post</button> <br>
+					<% end %>
+				<% end %>
+				<br><br>
+			<% end %>
+		<% end %>
+	<% end %>
+<% else %>
+	You need to log in to view messages! <%= link_to "Login!", controller: :users, action: :login %>
+<% end %>

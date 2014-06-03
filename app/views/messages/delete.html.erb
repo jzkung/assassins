@@ -1,0 +1,7 @@
+<% content_for :title, "Deleted Message" %>
+
+You have just deleted the message: <br>
+<b><%= @message.content %></b>
+<br>
+<br>
+<%= link_to "Return to Message Board", controller: :messages, action: :message_board %>

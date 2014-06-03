@@ -3,6 +3,12 @@ class MessagesController < ApplicationController
     @message = Message.new
   end
 
+  def message_board
+    if !session[:current_user_id].nil?
+      @messages = Message.all
+    end
+  end
+
   def create
     @message = Message.new
     @current_user = User.find(session[:current_user_id])
@@ -11,7 +17,11 @@ class MessagesController < ApplicationController
     @message.content = params[:message][:content]
     @message.deleted = false
     @message.post_date = DateTime.now
-    @message.save(:validate => false)
+    if @message.save then
+      redirect_to controller: :messages, action: :message_board
+    else
+      render "new"
+    end
   end
   
   def delete
