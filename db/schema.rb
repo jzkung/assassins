@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20140602100716) do
     t.string   "login"
     t.string   "phone_number"
     t.string   "password"
+    t.float    "killring_degrees"
     t.datetime "term_date"
     t.string   "role"
     t.string   "status"

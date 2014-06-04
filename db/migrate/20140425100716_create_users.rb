@@ -10,6 +10,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :login
       t.string :phone_number
       t.string :password
+      t.float :killring_degrees
 
       t.datetime :term_date
 
