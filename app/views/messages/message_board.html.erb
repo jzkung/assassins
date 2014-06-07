@@ -8,9 +8,9 @@
 	<% else %>
 		<br>
 		<% url = "new" %>
-		<%= form_tag(url) do |f| %>
+		<div class="form-container"><%= form_tag(url) do |f| %>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Post a Message</button> <br>
-		<% end %><br>
+		<% end %></div><br>
 		<!-- This is great except that it posts the messages in the wrong order-->
 		<% @messages.each do |message| %> 
 			<% if !message.deleted? %>
@@ -19,9 +19,9 @@
 				<% if (User.find(session[:current_user_id])).is_admin? %>
 					<h6> Posted by: <%= message.player.full_name %></h6>
 					<% url = "delete?id=" + message.id.to_s %>
-					<%= form_tag(url) do |f| %>
+					<div class="form-container"><%= form_tag(url) do |f| %>
 						<button class="btn btn-lg btn-primary btn-block" type="submit">Delete Post</button> <br>
-					<% end %>
+					<% end %></div>
 				<% end %>
 				<br><br>
 			<% end %>

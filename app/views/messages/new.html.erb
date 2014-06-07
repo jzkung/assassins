@@ -6,10 +6,10 @@
   	<% end %>
 <% end %>
 
-<div class="form-container">
+<div class="form-container"><div class="col-md_3">
 	<%= form_for(@message, method: :post, url: {action: :create}) do |form| %>
 		<%= form.text_area(:content, :class => "form-control", :placeholder => "Your anonymous message... (ex. Imma kill you.)", size: "24x6") %>
 		<br>
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Post Message</button>
 	<% end %>
-</div>
+</div></div>
