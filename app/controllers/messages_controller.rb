@@ -23,6 +23,7 @@ class MessagesController < ApplicationController
       render "new"
     end
   end
+
   
   def delete
     @message = Message.find(params[:id])

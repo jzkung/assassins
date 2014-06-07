@@ -1,11 +1,30 @@
 <% content_for :title, "View Your Kills!" %>
 
 <% if !session[:current_user_id].nil? %>
-	<% @kills.each do |kill| %>
-		Assassin: <%= @current_user.full_name %> <br>
-		Target: <%= kill.target.full_name %>
-		Time Killed: <%= kill.time_killed %> <br>
-	<% end %>
+	<div class="row">
+		<div class="col-md-3">
+			<p><b>History</b></p>
+			<% @kills.each do |kill| %>
+				Assassin: <%= @current_user.full_name %> <br>
+				Target: <%= kill.target.full_name %>
+				Time Killed: <%= kill.time_killed %> <br>
+			<% end %>
+		</div>
+		<div class="col-md-3">
+			You're target is:<br>
+			<b><%= @current_user.target.full_name %></b>
+		</div>
+		<div class="col-md-3">
+			Post a message about your most recent kill:<br>
+			<div class="form-container">
+				<%= form_for(@message, method: :post, url: {controller: :messages, action: :create}) do |form| %>
+					<%= form.text_area(:content, :class => "form-control", :placeholder => "Your anonymous message... (ex. You're next!)", size: "24x2") %>
+					<br>
+					<button class="btn btn-lg btn-primary btn-block" type="submit">Post Message</button>
+				<% end %>
+			</div>
+		</div>
+	</div>
 <% else %>
 	You need to log in to view your kills! <%= link_to "Login!", controller: :users, action: :login %>
 <% end %>
