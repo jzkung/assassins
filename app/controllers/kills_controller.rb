@@ -7,7 +7,7 @@ class KillsController < ApplicationController
   def history
     if !session[:current_user_id].nil?
       @current_user = User.find(session[:current_user_id])
-      @kills = Kill.where(:assassin => @current_user)
+      @kills = Kill.where(:assassin => @current_user).reverse_order
     end
     @message = Message.new
   end
