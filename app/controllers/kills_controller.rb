@@ -26,6 +26,8 @@ class KillsController < ApplicationController
         @kill.assassin = @current_user.target.assassin
         @kill.code = params[:kill][:code]
         @kill.time_killed = DateTime.now
+        @kill.lat = params[:lat]
+        @kill.lng = params[:lng]
         @kill.game = @current_user.game
         if @kill.save(:validate => false) then
           @current_user.term_date = DateTime.now.in(86400)
@@ -64,6 +66,8 @@ class KillsController < ApplicationController
     @term.assassin = @admin
     @term.target = @term_user
     @term.time_killed = DateTime.now
+    @term.lat = params[:lat]
+    @term.lng = params[:lng]
     @term.game = @term_user.game
     @term.save(:validate => false)
     @term_user.target.update(assassin: @term_user.assassin)

@@ -3,6 +3,10 @@ class GamesController < ApplicationController
 		@game = Game.new
 	end
 
+	def statistics
+		@kills = Kill.all
+	end
+
 	def create
 	    @game = Game.new
 	    @game.name = params[:game][:name]
@@ -25,10 +29,6 @@ class GamesController < ApplicationController
 
 	def join
 		@game = Game.new
-	end
-
-	def leaderboard
-		@game = Game.all
 	end
 
 	def post_join

@@ -5,7 +5,8 @@ class CreateKills < ActiveRecord::Migration
       t.belongs_to :target
       t.belongs_to :assassin
       t.string :code
-    	t.string :location
+    	t.string :lat
+      t.string :lng
     	t.datetime :deadline
     	t.datetime :time_killed
 

@@ -37,10 +37,8 @@
 			<% if @current_user.is_admin? %>
 				<% if Game.where(:has_ended => false).count == 0 %>
 					<li><%= link_to "New Game", controller: :games, action: :new %></li>
-				<% else %>
-					<li><%= link_to "Leaderboard", controller: :games, action: :leaderboard %></li>
 				<% end %>
-				<li><%= link_to "Manage Users", controller: :users, action: :manage %></li>
+				<li><%= link_to "Statistics", controller: :games, action: :statistics %></li>
 			<% elsif @current_user.game_id.blank? %>
 				<li><%= link_to "Join Game", controller: :games, action: :join %></li>
 			<% else %>
