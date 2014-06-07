@@ -52,3 +52,6 @@ end
 gem 'activerecord-session_store'
 
 gem 'rails_12factor', group: :production
+
+gem 'omniauth'
+gem 'omniauth-facebook', '1.4.0'
