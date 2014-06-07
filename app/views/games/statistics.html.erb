@@ -1,0 +1,17 @@
+<% content_for :title, "Statistics" %>
+<div id="map-canvas"></div>
+
+<div id="markers">
+	<% @kills.each do |kill| %>
+		<div class="marker">
+			<div class="assassin"><%= kill.assassin.full_name %></div>
+			<div class="target"><%= kill.target.full_name %></div>
+			<div class="lat"><%= kill.lat%></div>
+			<div class="lng"><%= kill.lng %></div>
+		</div>
+	<% end %>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+<%= javascript_include_tag 'show-map' %> 
