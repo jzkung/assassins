@@ -33,6 +33,7 @@
 			<% @current_user = User.find(session[:current_user_id]) %>
 			<li><%= link_to "Hi, #{@current_user.full_name}!", controller: :users, action: :index %></li>  
 			<li><%= link_to "(Logout)", controller: :users, action: :logout %></li>
+			<li><%= link_to "Rules", controller: :games, action: :rules %></li>
 			<li><%= link_to "Message Board", controller: :messages, action: :message_board %></li>
 			<% if @current_user.is_admin? %>
 				<% if Game.where(:has_ended => false).count == 0 %>
