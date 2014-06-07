@@ -56,11 +56,4 @@ Assassins::Application.routes.draw do
   root 'users#index'
   get ':controller(/:action(/:id))'
   post ':controller(/:action(/:id))'
-
-  get 'auth/:provider/callback' => 'sessions#create'
-  get 'auth/failure' => redirect('/')
-  get 'signout' => 'sessions#destroy', as: 'signout'
-
-  resources :sessions, only: [:create, :destroy]
-  resource :home, only: [:show]
 end
