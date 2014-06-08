@@ -12,6 +12,10 @@
 	<br>
 	<%= form.text_field(:code, :class => "form-control", :placeholder => "Game code (e.g. j-ro123)") %>
 	<br>
+	<%= form.email_field(:email, :class => "form-control", :placeholder => "Game admin email (ex. dormrcc@stanford.edu") %>
+	<br>
+	<%= form.number_field(:term_hrs, :class => "form-control", :placeholder => "Hours until Termination (ex. 24)", in: 0.000..100.000, step: 0.001) %>
+	<br>
 	<button class="btn btn-lg btn-primary btn-block" type="submit">Create New Game</button>
 <% end %>
 </div>
