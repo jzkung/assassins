@@ -12,6 +12,8 @@
 	<%= hidden_field_tag(:lat, "") %>
 	<%= hidden_field_tag(:lng, "") %>
 	<br>
+	<%= form.text_area(:description, :class => "form-control", :placeholder => "Description of your kill. (ex. I jumped out of the window after them and shot them as we fell to the ground).", size: "24x6") %>
+	<br>
 	<button class="btn btn-lg btn-primary btn-block" type="submit">Report Kill</button>
 <% end %>
 </div>

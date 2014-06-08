@@ -23,6 +23,10 @@ class GamesController < ApplicationController
 	    end
 	end
 
+	def rules
+		@game = Game.new
+	end
+
 	def index
 		@games = Game.all
 	end

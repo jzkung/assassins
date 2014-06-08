@@ -7,8 +7,9 @@ class KillsController < ApplicationController
   def history
     if !session[:current_user_id].nil?
       @current_user = User.find(session[:current_user_id])
-      @kills = Kill.where(:assassin => @current_user)
+      @kills = Kill.where(:assassin => @current_user).reverse_order
     end
+    @message = Message.new
   end
 
   def post_report
@@ -29,6 +30,7 @@ class KillsController < ApplicationController
         @kill.lat = params[:lat]
         @kill.lng = params[:lng]
         @kill.game = @current_user.game
+        @kill.description = params[:kill][:description]
         if @kill.save(:validate => false) then
           @current_user.term_date = DateTime.now.in(86400)
           @current_user.target.status = "dead"
@@ -69,6 +71,7 @@ class KillsController < ApplicationController
     @term.lat = params[:lat]
     @term.lng = params[:lng]
     @term.game = @term_user.game
+    @term.description = "Terminated."
     @term.save(:validate => false)
     @term_user.target.update(assassin: @term_user.assassin)
     @term_user.target.save(:validate => false)
@@ -77,11 +80,12 @@ class KillsController < ApplicationController
     @term_user.status = "dead"
     @term_user.save(:validate => false)
     @term_user.game.num_alive = @term_user.game.num_alive - 1
-    @term_user.save(:validate => false)
+    @term_user.game.save(:validate => false)
 
-    if (@term_user.game.num_alive == 1) then
+    if (@term_user.game.num_alive == 1) then #where is num_alive?
       @winner = @term_user.target
       @term_user.game.has_ended = true
+      @term_user.game.save(:validate => false)
       UserMailer.win_email(@winner).deliver
     else
       UserMailer.term_target(@term_user.assassin, @term).deliver
