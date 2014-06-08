@@ -3,14 +3,14 @@ class LoadData < ActiveRecord::Migration
     # Create initial users.
     down
 
-    game2 = Game.new(:name => "GameTest5_19", :code => "game2", :is_started => false, :has_ended => false, :num_alive => 11, :email => "jro.assassins@gmail.com", :term_hrs => 0.003)
+    game2 = Game.new(:name => "GameTest5_19", :code => "game2", :is_started => false, :has_ended => false, :num_alive => 11, :term_hrs => 0.003)
     game2.save(:validate => false)
 
     # salt = rand()
-    # simon = User.new(:first_name => "Simon", :last_name => "Shachter", :email => "simonys@stanford.edu", :login => "simon", :phone_number => "6505751462", :role => "admin", :status => "alive", :password => pass)
-    # simon.save(:validate => false)
-     jessica = User.new(:first_name => "Jessica", :last_name => "Kung", :name => "Jessica Kung", :email => "jzkung@stanford.edu", :role => "admin", :status => "alive", :provider => 'facebook', :uid => '10152272029596026', :image_url => 'http://graph.facebook.com/10152272029596026/picture?type=large')
-     jessica.save(:validate => false)
+    simon = User.new(:first_name => "Simon", :last_name => "Shachter", :name => "Simon Shachter", :email => "simonys@stanford.edu", :role => "admin", :status => "alive", :provider => 'facebook', :uid => '10152113038792601', :image_url => 'http://graph.facebook.com/10152113038792601/picture?type=large')
+    simon.save(:validate => false)
+    jessica = User.new(:first_name => "Jessica", :last_name => "Kung", :name => "Jessica Kung", :email => "jzkung@stanford.edu", :role => "admin", :status => "alive", :provider => 'facebook', :uid => '10152272029596026', :image_url => 'http://graph.facebook.com/10152272029596026/picture?type=large')
+    jessica.save(:validate => false)
     # # kat = User.new(:first_name => "Kat", :last_name => "Phan", :email => "kxphan@stanford.edu", :login => "kat", :phone_number => "6505751434", :role => "player", :status => "alive", :kill_code => "kat", :password => pass)
     # # kat.game = game1
     # # kat.save(:validate => false)

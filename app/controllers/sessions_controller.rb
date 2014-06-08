@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
     user = User.where(:provider => auth['provider'], 
                       :uid => auth['uid']).first || User.create_with_omniauth(auth)
     session[:current_user_id] = user.id
+    UserMailer.welcome_email(user).deliver
     redirect_to root_url, :notice => "Signed in!"
   end
   

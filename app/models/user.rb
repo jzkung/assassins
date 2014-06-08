@@ -23,7 +23,6 @@ class User < ActiveRecord::Base
 	        user.profile_url = "https://www.facebook.com/" + auth['uid']
  	      end
 	    end
-	    #UserMailer.welcome_email(@user).deliver
 	  end
 
 	def full_name

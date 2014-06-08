@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 20140602100716) do
     t.integer  "num_alive"
     t.boolean  "is_started"
     t.boolean  "has_ended"
-    t.string   "email"
     t.float    "term_hrs"
     t.datetime "created_at"
     t.datetime "updated_at"
