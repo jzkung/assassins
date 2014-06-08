@@ -1,7 +1,0 @@
-<% content_for :title, "Logout!" %>
-
-<%= form_for(:session, method: :post, url: {action: :post_login}) do %>
-	<%= label_tag(:login, "Login name: ") %>
-	<%= text_field_tag(:login) %>
-	<%= submit_tag("Login!") %>
-<% end %>
