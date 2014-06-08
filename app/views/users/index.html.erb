@@ -41,11 +41,10 @@
 							<% kills = Kill.where(:game => game) %>
 							<% kills.each do |kill| %>
 								<p>
-								Assassin: <%= kill.assassin.full_name %>
-								<br>
-								Target: <%= kill.target.full_name %>
-								<br>
-								Time Stamp: <%= kill.time_killed.to_formatted_s(:long_ordinal) %>
+								Assassin: <%= kill.assassin.full_name %><br>
+								Target: <%= kill.target.full_name %><br>
+								Time Stamp: <%= kill.time_killed.to_formatted_s(:long_ordinal) %><br>
+								Description: <%= kill.description %>
 								</p>
 							<% end %>
 						</div>
@@ -78,6 +77,7 @@
 								<br>
 							<% end %>
 						<% end %>
+						<br>
 					</div></div>
 				<% else %>
 					<div class="row"><div class="col-md-3">
@@ -87,30 +87,33 @@
 						<% end %>
 					</div></div>
 				<% end %>
-				<div class="row">
-					<p><b>Last few messages:</b></p>
-				</div><div class="row">
-					<% count = 0 %>
-					<% messages = game.messages.reverse_order %>
-					<% if !messages.nil? %>
-						<% messages.each do |message| %>
-							<% if !message.deleted?  && count < 4%>
-								<div class="col-md-3">
-									<h6>Time: <%= message.post_date.to_formatted_s(:long_ordinal) %></h6>
-									<b><%= message.content %></b><br>
-									<h6> Posted by: <%= message.player.full_name %></h6>
-									<% url = "messages/delete?id=" + message.id.to_s %>
-									<div class="form-container">
-										<%= form_tag(url) do |f| %>
-											<button class="btn btn-lg btn-primary btn-block" type="submit">Delete Post</button> <br>
-										<% end %>
+				<% if game.is_started then %>
+					<div class="row">
+						<p><b>Last few messages:</b></p>
+					</div>
+					<div class="row">
+						<% count = 0 %>
+						<% messages = game.messages.reverse_order %>
+						<% if !messages.nil? %>
+							<% messages.each do |message| %>
+								<% if !message.deleted?  && count < 4%>
+									<div class="col-md-3">
+										<h6>Time: <%= message.post_date.to_formatted_s(:long_ordinal) %></h6>
+										<b><%= message.content %></b><br>
+										<h6> Posted by: <%= message.player.full_name %></h6>
+										<% url = "messages/delete?id=" + message.id.to_s %>
+										<div class="form-container">
+											<%= form_tag(url) do |f| %>
+												<button class="btn btn-lg btn-primary btn-block" type="submit">Delete Post</button> <br>
+											<% end %>
+										</div>
+										<% count = count + 1 %>
 									</div>
-									<% count = count + 1 %>
-								</div>
+								<% end %>
 							<% end %>
 						<% end %>
-					<% end %>
-				</div>
+					</div>
+				<% end %>
 			<% end %>
 	  	<% end %>
 		
@@ -142,10 +145,8 @@
 					<% kills = Kill.where(:game_id => game.id) %>
 					<% kills.each do |kill| %>
 						<p>
-						Assassin: <%= kill.assassin.full_name %>
-						<br>
-						Target: <%= kill.target.full_name %>
-						<br>
+						Assassin: <%= kill.assassin.full_name %><br>
+						Target: <%= kill.target.full_name %><br>
 						Time Stamp: <%= kill.time_killed.to_formatted_s(:long_ordinal) %>
 						</p>
 					<% end %>
@@ -208,7 +209,18 @@
 
 	<% elsif @current_user.status == "dead" %>
 		<p> Thank you for playing assassins. </p>
-		<p> We wish you better luck in the next round. </p>
+		<p> We wish you better luck in the next round. </p><br><br>
+		<% if @current_user.game.has_ended? then %>
+			<b><p> History of Kills for Your Game </p></b>
+			<% @current_user.game.kills.each do |kill| %>
+				<p>
+				Assassin: <%= kill.assassin.full_name %><br>
+				Target: <%= kill.target.full_name %><br>
+				Time Stamp: <%= kill.time_killed.to_formatted_s(:long_ordinal) %><br>
+				Description: <%= kill.description %>
+				</p>
+			<% end %>
+		<% end %>
 		<div class="row">
 			<br><br><b>Last few messages:</b>
 		</div><div class="row">
@@ -233,7 +245,16 @@
 	<% elsif @current_user.target == @current_user %>
 		<h3>
 			<p>YOU WON!!</p>
-			<p>CONGRATULATIONS!!</p>
+			<p>CONGRATULATIONS!!</p><br><br>
+			<b><p> History of Kills for Your Game </p></b>
+			<% @current_user.game.kills.each do |kill| %>
+				<p>
+				Assassin: <%= kill.assassin.full_name %><br>
+				Target: <%= kill.target.full_name %><br>
+				Time Stamp: <%= kill.time_killed.to_formatted_s(:long_ordinal) %><br>
+				Description: <%= kill.description %>
+				</p>
+			<% end %>
 		</h3>
 		<div class="row">
 			<br><br><b>Last few messages:</b>

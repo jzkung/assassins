@@ -9,6 +9,7 @@ class CreateKills < ActiveRecord::Migration
       t.string :lng
     	t.datetime :deadline
     	t.datetime :time_killed
+      t.string :description
 
     	t.timestamps
     end

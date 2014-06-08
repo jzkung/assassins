@@ -6,8 +6,9 @@
 			<p><b>History</b></p>
 			<% @kills.each do |kill| %>
 				Assassin: <%= @current_user.full_name %> <br>
-				Target: <%= kill.target.full_name %>
+				Target: <%= kill.target.full_name %> <br>
 				Time Killed: <%= kill.time_killed.to_formatted_s(:long_ordinal) %> <br>
+				Description: <%= kill.description %><br>
 			<% end %>
 		</div>
 		<div class="col-md-3">

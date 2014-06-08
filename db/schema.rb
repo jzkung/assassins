@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20140602100716) do
     t.string   "lng"
     t.datetime "deadline"
     t.datetime "time_killed"
+    t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
