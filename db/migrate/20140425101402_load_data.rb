@@ -3,7 +3,7 @@ class LoadData < ActiveRecord::Migration
     # Create initial users.
     down
 
-    game2 = Game.new(:name => "GameTest5_19", :code => "game2", :is_started => false, :has_ended => false, :num_alive => 11)
+    game2 = Game.new(:name => "GameTest5_19", :code => "game2", :is_started => false, :has_ended => false, :num_alive => 11, :email => "jro.assassins@gmail.com", :term_hrs => 0.003)
     game2.save(:validate => false)
 
     salt = rand()

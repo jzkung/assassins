@@ -43,7 +43,9 @@
 			<% elsif @current_user.game_id.blank? %>
 				<li><%= link_to "Join Game", controller: :games, action: :join %></li>
 			<% else %>
-				<li><%= link_to "Report Kill", controller: :kills, action: :report %></li>
+				<% if @current_user.status == "alive" && !@current_user.game.has_ended? %>
+					<li><%= link_to "Report Kill", controller: :kills, action: :report %></li>
+				<% end %>
 				<li><%= link_to "Kill History", controller: :kills, action: :history %></li>
 			<% end %>
 		<% else %>
