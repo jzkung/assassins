@@ -56,4 +56,8 @@ Assassins::Application.routes.draw do
   root 'users#index'
   get ':controller(/:action(/:id))'
   post ':controller(/:action(/:id))'
+
+  get '/auth/:provider/callback' => 'sessions#create'
+  get '/signout' => 'sessions#destroy'
+  get '/signin' => 'sessions#new'
 end
