@@ -8,17 +8,22 @@ class User < ActiveRecord::Base
 	scope :admin, -> {where role: 'admin'}
 	scope :mod, -> {where role: 'mod'}
 
-	validates :first_name, presence: true
-	validates :last_name, presence: true
-	validates :email, presence: true
-	#validates :email, uniqueness: true
-	validates :password, presence: true
-	validates :login, uniqueness: true
-	validates :password, confirmation: true
 	@password
 
+	def self.create_with_omniauth(auth)
+	    create! do |user|
+	      user.provider = auth['provider']
+	      user.uid = auth['uid']
+	      if auth['info']
+	         user.name = auth['info']['name'] || ""
+	         user.email = auth['info']['email'] || ""
+	      end
+	    end
+	    #UserMailer.welcome_email(@user).deliver
+	  end
+
 	def full_name
-		"#{first_name} #{last_name}"
+		name
 	end
 
 	def is_admin?

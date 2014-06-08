@@ -1,15 +1,15 @@
 class CreateUsers < ActiveRecord::Migration
   def up
+
     create_table :users do |t|
       t.belongs_to :game
       t.belongs_to :target
       t.belongs_to :assassin
-      t.string :first_name
-      t.string :last_name
+      t.string :name
       t.string :email
-      t.string :login
+      t.string :provider
+      t.string :uid
       t.string :phone_number
-      t.string :password
       t.float :killring_degrees
 
       t.datetime :term_date
