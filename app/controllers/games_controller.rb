@@ -16,6 +16,8 @@ class GamesController < ApplicationController
 	    @game.is_started = false
 	    @game.has_ended = false
 	    @game.num_alive = 0
+	    @game.email = params[:game][:email]
+	    @game.term_hrs = params[:game][:term_hrs]
 	    if @game.save then
 	      redirect_to controller: :users, action: :index
 	    else
@@ -24,7 +26,10 @@ class GamesController < ApplicationController
 	end
 
 	def rules
-		@game = Game.new
+		if !session[:current_user_id].nil?
+			current_user = User.find(session[:current_user_id])
+			@game = current_user.game
+		else
 	end
 
 	def index
@@ -108,7 +113,7 @@ class GamesController < ApplicationController
 				@curr_user = users[num_users - 1]
 				UserMailer.game_start(@game, @curr_user).deliver
 				#Number of seconds editted for testing.
-				@curr_user.term_date = DateTime.now.in(10) #86400
+				@curr_user.term_date = DateTime.now.in(@game.term_hrs * 3600) #86400
 				@curr_user.save(:validate => false)
 				num_users = num_users - 1
 			end

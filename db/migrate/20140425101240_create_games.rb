@@ -6,6 +6,8 @@ class CreateGames < ActiveRecord::Migration
       t.integer :num_alive
       t.boolean :is_started
       t.boolean :has_ended
+      t.string :email
+      t.float :term_hrs
 
       t.timestamps
     end

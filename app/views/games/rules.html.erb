@@ -2,7 +2,7 @@
 
 <br>
 <b>BASIC GUIDELINES:</b><br>
-At the beginning of this game everyone will be given a target and a secret word. Please pick up your water gun before that. Once you are given your water gun you will have 24 hours to assassinate your target and report it to jro.assassins@gmail.com. If you do not, you can still kill your target, but you will be assigned terminators who can kill you whenever and wherever until you kill your target and report it to jro.assassins@gmail.com. You report your kill by sending your target's secret word to jro.assassins@gmail.com. As soon as the staff are able, we will verify your kill and send you an email with your new target. Again, you will have 24 hours to kill your target from the time the email is sent to you. Contacting the staff in any other way does not count. The game continues until there is one player left.
+At the beginning of this game everyone will be given a target and a 4 digit kill code in an email from <%= @game.email %> Please pick up your water gun before that. Once you are given your water gun you will have <%= @game.term_hrs %> hours to assassinate your target and report it to this website. If you do not, you can still kill your target, but you will be assigned terminators who can kill you whenever and wherever until you kill your target and report it to this website. You report your kill by clicking <%= link_to "report kill", controller: :kills, action: :new %> above and inputting your target's kill code. If your kill code is correct you will be given your new target. Again, you will have <%= @game.term_hrs %> hours to kill your target from the time the email is sent to you. Contacting the administrators in any other ways does not count. The game continues until there is one player left.
 <br><br>
 <b>OTHER RULES:</b><br>
 You must use only water - or you will die.<br>
@@ -11,7 +11,7 @@ You must not steal someone else's gun - or you will die.<br>
 <b>DISPUTES:</b><br>
 If there is a disagreement, figure it out on your own using the Stanford Honor Code.<br>
 If you cannot figure it out, talk with an independent third party.<br>
-If you still cannot figure it out, you may contact jro.assassins@gmail.com, but your 24 hour time limit does not stop.<br>
+If you still cannot figure it out, you may contact <%= @game.email %>, but your <%= @game.email %> hour time limit does not stop.<br>
 If you are involved in too many disputes, you will be eliminated.<br>
 <br><br>
 <b>ASSASSINATION:</b><br>
@@ -30,11 +30,11 @@ The dining hall servery - where we eat is fine, where food is served is not.<br>
 <br><br>
 <b>TERMINATORS:</b><br>
 Terminators are staff members with guns. Big Guns.<br>
-You have 24 hours to kill someone and report it - from the time on the email you receive.<br>
+You have <%= @game.term_hrs %> hours to kill someone and report it - from the time on the email you receive.<br>
 You must report your kill in a timely manner or the terminators will get you.<br>
-If you kill someone within 24 hours and do not report it within 24 hours the terminators can still kill you until you report it.<br>
+If you kill someone within <%= @game.term_hrs %> hours and do not report it within <%= @game.term_hrs %> hours the terminators can still kill you until you report it.<br>
 You can be terminated in a safe zone.<br>
-Every time you kill someone, your 24 hours restart.<br>
+Every time you kill someone, your <%= @game.term_hrs %> hours restart.<br>
 <br><br>
 <b>NEUTRALIZING:</b><br>
 If you shoot your assassin before they shoot you (the person who is supposed to shoot you) they are neutralized for 1 hour and cannot kill you for that hour.<br>

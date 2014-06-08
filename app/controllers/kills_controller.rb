@@ -32,7 +32,7 @@ class KillsController < ApplicationController
         @kill.game = @current_user.game
         @kill.description = params[:kill][:description]
         if @kill.save(:validate => false) then
-          @current_user.term_date = DateTime.now.in(86400)
+          @current_user.term_date = DateTime.now.in(@kill.game.term_hrs * 3600)
           @current_user.target.status = "dead"
           @current_user.target.save(:validate => false)
           @current_user.update(target: @current_user.target.target)
