@@ -29,7 +29,7 @@ class GamesController < ApplicationController
 		if !session[:current_user_id].nil?
 			current_user = User.find(session[:current_user_id])
 			@game = current_user.game
-		else
+		end
 	end
 
 	def index

@@ -15,9 +15,13 @@ class User < ActiveRecord::Base
 	      user.provider = auth['provider']
 	      user.uid = auth['uid']
 	      if auth['info']
-	         user.name = auth['info']['name'] || ""
-	         user.email = auth['info']['email'] || ""
-	      end
+	      	user.first_name = auth['info']['first_name'] || ""
+	      	user.last_name = auth['info']['last_name'] || ""
+	        user.name = auth['info']['name'] || ""
+	        user.email = auth['info']['email'] || ""
+	        user.image_url = auth['info']['image'] + "?type=large" || ""
+	        user.profile_url = "https://www.facebook.com/" + auth['uid']
+ 	      end
 	    end
 	    #UserMailer.welcome_email(@user).deliver
 	  end

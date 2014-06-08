@@ -5,11 +5,14 @@ class CreateUsers < ActiveRecord::Migration
       t.belongs_to :game
       t.belongs_to :target
       t.belongs_to :assassin
+      t.string :first_name
+      t.string :last_name
       t.string :name
       t.string :email
       t.string :provider
       t.string :uid
-      t.string :phone_number
+      t.string :image_url
+      t.string :profile_url
       t.float :killring_degrees
 
       t.datetime :term_date

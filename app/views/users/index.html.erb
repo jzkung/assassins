@@ -3,7 +3,6 @@
   <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
 </div>
 <% end %>
-<%=  %>
 
 <% if session[:current_user_id].nil? %>
   	<% content_for :title, "Welcome to Assassins" %>
@@ -283,10 +282,14 @@
 			<% if DateTime.now > @current_user.term_date %>
 				<p> You are currently a target for the terminators! </p>
 				<p> Kill your target as soon as possible before they kill you! </p>
-				<p> Your target is: <b><%= @current_user.target.full_name %></b>. </p>
+				<p> Your target is: <b><a href=<%= @current_user.target.profile_url %>><%= @current_user.target.full_name %></a></b>. <br>
+					<%= image_tag @current_user.target.image_url %>
+				</p>
 				<p> Your kill code is: <b><%= @current_user.kill_code %></b>. </p>
 			<% else %>
-				<p> Your target is: <b><%= @current_user.target.full_name %></b>. </p>
+				<p> Your target is: <b><a href=<%= @current_user.target.profile_url %>><%= @current_user.target.full_name %></a></b>. <br>
+					<%= image_tag @current_user.target.image_url %>
+				</p>
 				<p> Your kill code is: <b><%= @current_user.kill_code %></b>. </p>
 				<p> You have until <%= @current_user.term_date.to_formatted_s(:long_ordinal) %> before the terminators come after you. </p>
 				<p> Kill your target to extend the deadline! </p>

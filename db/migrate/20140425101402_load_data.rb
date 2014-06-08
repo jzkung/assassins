@@ -7,11 +7,10 @@ class LoadData < ActiveRecord::Migration
     game2.save(:validate => false)
 
     # salt = rand()
-    # pass = "test"
     # simon = User.new(:first_name => "Simon", :last_name => "Shachter", :email => "simonys@stanford.edu", :login => "simon", :phone_number => "6505751462", :role => "admin", :status => "alive", :password => pass)
     # simon.save(:validate => false)
-    # jessica = User.new(:first_name => "Jessica", :last_name => "Kung", :email => "jzkung@stanford.edu", :login => "jessica", :phone_number => "6503916448", :role => "admin", :status => "alive", :password => pass)
-    # jessica.save(:validate => false)
+     jessica = User.new(:first_name => "Jessica", :last_name => "Kung", :name => "Jessica Kung", :email => "jzkung@stanford.edu", :role => "admin", :status => "alive", :provider => 'facebook', :uid => '10152272029596026', :image_url => 'http://graph.facebook.com/10152272029596026/picture?type=large')
+     jessica.save(:validate => false)
     # # kat = User.new(:first_name => "Kat", :last_name => "Phan", :email => "kxphan@stanford.edu", :login => "kat", :phone_number => "6505751434", :role => "player", :status => "alive", :kill_code => "kat", :password => pass)
     # # kat.game = game1
     # # kat.save(:validate => false)
