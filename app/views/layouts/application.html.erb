@@ -42,14 +42,17 @@
 					<li><%= link_to "New Game", controller: :games, action: :new %></li>
 				<% end %>
 				<li><%= link_to "Statistics", controller: :games, action: :statistics %></li>
-			<% elsif @current_user.game.has_ended? %>
-				<li><%= link_to "Join Game", controller: :games, action: :join %></li>
-			<% else %>
-				<% if !@current_user.game.has_ended? && @current_user.game.is_started %>
-					<% if @current_user.status == "alive" &&  %>
-						<li><%= link_to "Report Kill", controller: :kills, action: :report %></li>
+			<% end %>
+			<% if !@current_user.game_id.blank? %>
+				<% if @current_user.game.has_ended? %>
+					<li><%= link_to "Join Game", controller: :games, action: :join %></li>
+				<% else %>
+					<% if !@current_user.game.has_ended? && @current_user.game.is_started %>
+						<% if @current_user.status == "alive" &&  %>
+							<li><%= link_to "Report Kill", controller: :kills, action: :report %></li>
+						<% end %>
+						<li><%= link_to "Kill History", controller: :kills, action: :history %></li>
 					<% end %>
-					<li><%= link_to "Kill History", controller: :kills, action: :history %></li>
 				<% end %>
 			<% end %>
 		<% else %>
