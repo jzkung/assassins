@@ -1,8 +1,8 @@
 <% content_for :title, "Assassins Rules!" %>
 
 <br>
-<b>BASIC GUIDELINES:</b><br>
-At the beginning of this game everyone will be given a target and a 4 digit kill code in an email from <%= @game.email %> Please pick up your water gun before that. Once you are given your water gun you will have <%= @game.term_hrs %> hours to assassinate your target and report it to this website. If you do not, you can still kill your target, but you will be assigned terminators who can kill you whenever and wherever until you kill your target and report it to this website. You report your kill by clicking <%= link_to "report kill", controller: :kills, action: :new %> above and inputting your target's kill code. If your kill code is correct you will be given your new target. Again, you will have <%= @game.term_hrs %> hours to kill your target from the time the email is sent to you. Contacting the administrators in any other ways does not count. The game continues until there is one player left.
+<p><b>BASIC GUIDELINES:</b><br>
+At the beginning of this game everyone will be given a target and a 4 digit kill code in an email from jro.assassins@gmail.com. Please pick up your water gun before that. Once you are given your water gun you will have <%= @game.term_hrs %> hours to assassinate your target and report it to this website. If you do not, you can still kill your target, but you will be assigned terminators who can kill you whenever and wherever until you kill your target and report it to this website. You report your kill by clicking 'Report Kill' above and inputting your target's kill code. If your kill code is correct you will be given your new target. Again, you will have <%= @game.term_hrs %> hours to kill your target from the time the email is sent to you. Contacting the administrators in any other ways does not count. The game continues until there is one player left.
 <br><br>
 <b>OTHER RULES:</b><br>
 You must use only water - or you will die.<br>
@@ -11,7 +11,7 @@ You must not steal someone else's gun - or you will die.<br>
 <b>DISPUTES:</b><br>
 If there is a disagreement, figure it out on your own using the Stanford Honor Code.<br>
 If you cannot figure it out, talk with an independent third party.<br>
-If you still cannot figure it out, you may contact <%= @game.email %>, but your <%= @game.email %> hour time limit does not stop.<br>
+If you still cannot figure it out, you may contact jro.assassins@gmail.com, but your <%= @game.term_hrs %> hour time limit does not stop.<br>
 If you are involved in too many disputes, you will be eliminated.<br>
 <br><br>
 <b>ASSASSINATION:</b><br>
@@ -41,4 +41,4 @@ If you shoot your assassin before they shoot you (the person who is supposed to 
 You cannot be neutralized in a safe zone.<br>
 You can be neutralized if someone sees it.<br>
 If it becomes apparent you are shooting everyone just "in case" you will be eliminated.<br>
-When there are two players left in the game there is no neutralizing.<br>
+When there are two players left in the game there is no neutralizing.<br></p>

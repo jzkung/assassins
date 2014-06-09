@@ -8,21 +8,21 @@ class GamesController < ApplicationController
 	end
 
 	def create
-	    game = Game.new
-	    game.name = params[:game][:name]
-	    game.code = params[:game][:code]
-	    game.created_at = DateTime.now.utc-7.hour
-	    game.updated_at = DateTime.now.utc-7.hour
-	    game.is_started = false
-	    game.has_ended = false
-	    game.num_alive = 0
-	    game.term_hrs = params[:game][:term_hrs]
+	    @game = Game.new
+	    @game.name = params[:game][:name]
+	    @game.code = params[:game][:code]
+	    @game.created_at = DateTime.now.utc-7.hour
+	    @game.updated_at = DateTime.now.utc-7.hour
+	    @game.is_started = false
+	    @game.has_ended = false
+	    @game.num_alive = 0
+	    @game.term_hrs = params[:game][:term_hrs]
 	    admins = User.where(:role => "admin")
 	    admins.each do |admin|
-	    	admin.game = game
+	    	admin.game = @game
 	    	admin.save(:validate => false)
 	    end
-	    if game.save then
+	    if @game.save then
 	      redirect_to controller: :users, action: :index
 	    else
 	      render "new"
@@ -55,6 +55,7 @@ class GamesController < ApplicationController
 		      	render "join"
 		  	elsif !@game.nil?
 		  		@current_user.update(game: @game)
+		  		@current_user.update(status: "alive")
 		  		if @current_user.save(:validate => false) then
 		  			i = 4
 		  			kill_str = ""

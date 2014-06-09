@@ -42,8 +42,7 @@
 					<li><%= link_to "New Game", controller: :games, action: :new %></li>
 				<% end %>
 				<li><%= link_to "Statistics", controller: :games, action: :statistics %></li>
-			<% end %>
-			<% if !@current_user.game_id.blank? %>
+			<% elsif !@current_user.game_id.blank? %>
 				<% if @current_user.game.has_ended? %>
 					<li><%= link_to "Join Game", controller: :games, action: :join %></li>
 				<% else %>
@@ -54,6 +53,8 @@
 						<li><%= link_to "Kill History", controller: :kills, action: :history %></li>
 					<% end %>
 				<% end %>
+			<% else %>
+				<li><%= link_to "Join Game", controller: :games, action: :join %></li>
 			<% end %>
 		<% else %>
 			<li><%= link_to "Login!", signin_path %></li>

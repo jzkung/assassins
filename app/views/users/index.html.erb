@@ -132,23 +132,11 @@
 			<p><b><%= game.name %></b></p>
 			<% users = game.players.where(:role => "player") %>
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<p><b>Winner</b></p>
-					<% users.each do |user| %>
-						<% if user.status == "alive" %>
-							<p><%= user.full_name %> </p>
-						<% end %>
-					<% end %>
+					<p><%= game.winner %></p>
 				</div>
-				<div class="col-md-4">
-					<p><b>Dead</b></p>
-					<% users.each do |user| %>
-						<% if user.status == "dead" %>
-							<p><%= user.full_name %> </p>
-						<% end %>
-					<% end %>
-				</div>
-				<div class="col-md-4">
+				<div class="col-md-9">
 					<p><b>Kills</b></p>
 					<% kills = Kill.where(:game_id => game.id) %>
 					<% kills.each do |kill| %>
@@ -313,9 +301,10 @@
 				<p> You have until <%= @current_user.term_date.to_formatted_s(:long_ordinal) %> before the terminators come after you. </p>
 				<p> Kill your target to extend the deadline! </p>
 			<% end %>
-		<div class="row">
+		<div class="row"><div class="col-md-12">
 			<p><b>Last few messages:</b></p>
-		</div><div class="row">
+		</div></div>
+		<div class="row">
 			<% count = 0 %>
 			<% messages = @current_user.game.messages.reverse_order %>
 			<% if !messages.nil? %>

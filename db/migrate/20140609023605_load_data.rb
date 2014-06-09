@@ -3,7 +3,7 @@ class LoadData < ActiveRecord::Migration
     # Create initial users.
     down
 
-    game1 = Game.new(:name => "Epic Showdown", :code => "game1", :is_started => true, :has_ended => true, :num_alive => 1, :term_hrs => 24)
+    game1 = Game.new(:name => "Epic Showdown", :code => "game1", :is_started => true, :has_ended => true, :num_alive => 1, :term_hrs => 24, :winner => "Emily Nguyen")
     game1.save(:validate => false)
 
     game2 = Game.new(:name => "Showdown - Upgraded", :code => "game2", :is_started => false, :has_ended => false, :num_alive => 7, :term_hrs => 0.003)

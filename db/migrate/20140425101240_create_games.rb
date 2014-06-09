@@ -7,6 +7,7 @@ class CreateGames < ActiveRecord::Migration
       t.boolean :is_started
       t.boolean :has_ended
       t.float :term_hrs
+      t.string :winner
 
       t.timestamps
     end

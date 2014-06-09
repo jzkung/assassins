@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20140609023605) do
     t.boolean  "is_started"
     t.boolean  "has_ended"
     t.float    "term_hrs"
+    t.string   "winner"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

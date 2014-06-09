@@ -4,7 +4,7 @@
 You have just terminated <%= @term_user.first_name %> <%= @term_user.last_name %>.
 </p>
 <% if !@winner.blank? %>
-	<p><%= @term_user.full_name %> is the winner!</p>
+	<p><%= @term_user.game.winner %> is the winner!</p>
 <% else %>
 	<p>
 		<%= @term_user.first_name %>'s assassin, <%= @term_user.assassin.first_name %> <%= @term_user.assassin.last_name %>, has been assigned <%= @term_user.target.first_name %> <%= @term_user.target.last_name %>
