@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def index
-    @past_games = Game.where("num_alive = '1'")
+    @past_games = Game.where("num_alive = '1'").reverse_order
     @current_games = Game.where("num_alive != '1'")
 
     games = Game.all
