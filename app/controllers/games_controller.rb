@@ -54,27 +54,32 @@ class GamesController < ApplicationController
 		      	@game.errors.add(:code, ": You need to enter a code to join a game! Please try again!")
 		      	render "join"
 		  	elsif !@game.nil?
-		  		@current_user.update(game: @game)
-		  		@current_user.update(status: "alive")
-		  		if @current_user.save(:validate => false) then
-		  			i = 4
-		  			kill_str = ""
-		  			while i > 0
-		  				kill_int = Random.new.rand(0..9)
-		  				kill_str = kill_str + kill_int.to_s
-		  				i = i -1;
-		  			end
-		  			@current_user.kill_code = kill_str
-		  			curr_num_alive = @game.num_alive
-		  			@game.num_alive = curr_num_alive + 1
-		  			@game.save(:validate => false)
-		  			@current_user.save(:validate => false)
-		  			UserMailer.game_welcome(@game, @current_user).deliver
-			  		redirect_to controller: :users, action: :index
+		  		if !@game.is_started
+			  		@current_user.update(game: @game)
+			  		@current_user.update(status: "alive")
+			  		if @current_user.save(:validate => false) then
+			  			i = 4
+			  			kill_str = ""
+			  			while i > 0
+			  				kill_int = Random.new.rand(0..9)
+			  				kill_str = kill_str + kill_int.to_s
+			  				i = i -1;
+			  			end
+			  			@current_user.kill_code = kill_str
+			  			curr_num_alive = @game.num_alive
+			  			@game.num_alive = curr_num_alive + 1
+			  			@game.save(:validate => false)
+			  			@current_user.save(:validate => false)
+			  			UserMailer.game_welcome(@game, @current_user).deliver
+				  		redirect_to controller: :users, action: :index
 
-			  	else
-			  		render "join"
-			  	end
+				  	else
+				  		render "join"
+				  	end
+				else
+					@game.errors.add(:code, ": This game has already started")
+					render "join"
+				end
 		  	else
 		      	@game = Game.new
 		      	@game.errors.add(:code, ": A game with this code does not exist! Please try again!")

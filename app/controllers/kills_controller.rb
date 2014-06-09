@@ -27,8 +27,8 @@ class KillsController < ApplicationController
         @kill.assassin = @current_user.target.assassin
         @kill.code = params[:kill][:code]
         @kill.time_killed = DateTime.now.utc-7.hour
-        @kill.lat = params[:lat]
-        @kill.lng = params[:lng]
+        @kill.lat = "37.428258"#params[:lat] #37.428258 - latitude of Wallenberg
+        @kill.lng = "-122.16905"#params[:lng] #-122.16905 - longitude of Wallenberg
         @kill.game = @current_user.game
         @kill.description = params[:kill][:description]
         if @kill.save(:validate => false) then
@@ -42,6 +42,9 @@ class KillsController < ApplicationController
           @current_user.game.num_alive = @current_user.game.num_alive - 1
           @current_user.game.save(:validate => false)
           if (@current_user.game.has_ended?) then
+            @winner = @term_user.target
+            @term_user.game.winner = @term_user.target.name
+            @term_user.game.save(:validate => false)
             UserMailer.win_email(@current_user).deliver
           else
             UserMailer.kill_confirm(@kill, @current_user).deliver
@@ -69,8 +72,8 @@ class KillsController < ApplicationController
     @term.assassin = @admin
     @term.target = @term_user
     @term.time_killed = DateTime.now.utc-7.hour
-    @term.lat = params[:lat]
-    @term.lng = params[:lng]
+    @term.lat = "37.428258"#params[:lat]
+    @term.lng = "-122.16905"#params[:lng]
     @term.game = @term_user.game
     @term.description = "Terminated."
     @term.save(:validate => false)
