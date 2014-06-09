@@ -42,9 +42,9 @@ class KillsController < ApplicationController
           @current_user.game.num_alive = @current_user.game.num_alive - 1
           @current_user.game.save(:validate => false)
           if (@current_user.game.has_ended?) then
-            @winner = @term_user.target
-            @term_user.game.winner = @term_user.target.name
-            @term_user.game.save(:validate => false)
+            @winner = @current_user.target
+            @current_user.game.winner = @current_user.target.name
+            @current_user.game.save(:validate => false)
             UserMailer.win_email(@current_user).deliver
           else
             UserMailer.kill_confirm(@kill, @current_user).deliver
