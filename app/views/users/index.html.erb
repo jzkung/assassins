@@ -6,7 +6,7 @@
 
 <% if session[:current_user_id].nil? %>
   	<% content_for :title, "Welcome to Assassins" %>
-  		<p>Please <%= link_to 'login', signin_path %> using your Facebook account to join a game! Don't worry, we only need your public profile and email! :D</p>
+  		<p>Please <%= link_to 'login', signin_path %> using your Facebook account to join a game!<br> Don't worry, we only need your public profile and email!</p>
 <% else %>
 	<% @current_user = User.find(session[:current_user_id]) %>
 	<% if @current_user.is_admin? %>
