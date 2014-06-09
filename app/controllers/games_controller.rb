@@ -11,8 +11,8 @@ class GamesController < ApplicationController
 	    game = Game.new
 	    game.name = params[:game][:name]
 	    game.code = params[:game][:code]
-	    game.created_at = DateTime.now
-	    game.updated_at = DateTime.now
+	    game.created_at = DateTime.now.utc-7.hour
+	    game.updated_at = DateTime.now.utc-7.hour
 	    game.is_started = false
 	    game.has_ended = false
 	    game.num_alive = 0
@@ -117,7 +117,7 @@ class GamesController < ApplicationController
 				@curr_user = users[num_users - 1]
 				UserMailer.game_start(@game, @curr_user).deliver
 				#Number of seconds editted for testing.
-				@curr_user.term_date = DateTime.now.in(@game.term_hrs * 3600) #86400
+				@curr_user.term_date = (DateTime.now.utc-7.hour).in(@game.term_hrs * 3600) #86400
 				@curr_user.save(:validate => false)
 				num_users = num_users - 1
 			end

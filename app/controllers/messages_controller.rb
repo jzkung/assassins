@@ -16,7 +16,7 @@ class MessagesController < ApplicationController
     @message.game = @current_user.game
     @message.content = params[:message][:content]
     @message.deleted = false
-    @message.post_date = DateTime.now
+    @message.post_date = DateTime.now.utc-7.hours
     if @message.save then
       redirect_to controller: :messages, action: :message_board
     else

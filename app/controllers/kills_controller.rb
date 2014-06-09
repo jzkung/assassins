@@ -26,13 +26,13 @@ class KillsController < ApplicationController
         @kill.target = @current_user.target
         @kill.assassin = @current_user.target.assassin
         @kill.code = params[:kill][:code]
-        @kill.time_killed = DateTime.now
+        @kill.time_killed = DateTime.now.utc-7.hour
         @kill.lat = params[:lat]
         @kill.lng = params[:lng]
         @kill.game = @current_user.game
         @kill.description = params[:kill][:description]
         if @kill.save(:validate => false) then
-          @current_user.term_date = DateTime.now.in(@kill.game.term_hrs * 3600)
+          @current_user.term_date = (DateTime.now.utc-7.hour).in(@kill.game.term_hrs * 3600)
           @current_user.target.status = "dead"
           @current_user.target.save(:validate => false)
           @current_user.update(target: @current_user.target.target)
@@ -68,7 +68,7 @@ class KillsController < ApplicationController
     @term = Kill.new
     @term.assassin = @admin
     @term.target = @term_user
-    @term.time_killed = DateTime.now
+    @term.time_killed = DateTime.now.utc-7.hour
     @term.lat = params[:lat]
     @term.lng = params[:lng]
     @term.game = @term_user.game

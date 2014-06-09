@@ -63,6 +63,7 @@
 
 	<div class="container" role="main">
 		<div class="jumbotron">
+			<% date = DateTime.now.utc-7.hour %> <!-- Date Time Change -->
 			<h2><%= yield(:title) %></h2>
 			<%= yield %>
 		</div>

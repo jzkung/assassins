@@ -5,7 +5,7 @@ Your target, <%= @kills.target.first_name %>, has been terminated.
 
 Your next target is <%= @user.target.first_name %> <%= @user.target.last_name %>.
 
-You do not get another 24 hours to kill <%= @user.target.first_name %>. <% if DateTime.now > @user.term_date %> You are currently a target for the terminators so be sure to kill someone to extend your deadline. <% else %> You have until <%= @user.term_date.to_formatted_s(:long_ordinal) %> until you become a target. <% end %>
+You do not get another 24 hours to kill <%= @user.target.first_name %>. <% if DateTime.now.utc-7.hour > @user.term_date %> You are currently a target for the terminators so be sure to kill someone to extend your deadline. <% else %> You have until <%= @user.term_date.to_formatted_s(:long_ordinal) %> until you become a target. <% end %>
 
 Lastly, don't forget your kill code <%= @user.kill_code %>!
 

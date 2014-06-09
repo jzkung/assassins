@@ -6,7 +6,7 @@
   <body>
     <h1>The game <%= @game.name %> has begun!</h1>
     <p>
-      As of <%= DateTime.now.to_formatted_s(:long_ordinal) %>, asssassins has begun.<br>
+      As of <%= (DateTime.now.utc-7.hour).to_formatted_s(:long_ordinal) %>, asssassins has begun.<br>
     </p>
     <p>
       Your target is <b><%= @user.target.first_name%> <%= @user.target.last_name %></b>

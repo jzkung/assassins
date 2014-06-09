@@ -1,7 +1,7 @@
 The game <%= @game.name %> has begun!
 ========================================
 
-As of <%= DateTime.now.to_formatted_s(:long_ordinal) %>, asssassins has begun.
+As of <%= (DateTime.now.utc-7.hour).to_formatted_s(:long_ordinal) %>, asssassins has begun.
 
 Your target is <%= @user.target.first_name%> <%= @user.target.last_name %>.
 

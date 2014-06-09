@@ -51,7 +51,7 @@
 						<div class="col-md-3">
 							<p><b>To Be Terminated</b></p>
 							<% users.each do |user| %>
-								<% if user.status == "alive" && DateTime.now > user.term_date %>
+								<% if user.status == "alive" && DateTime.now.utc-7.hour > user.term_date %>
 									<p><%= user.full_name %> </p>
 									<% url = "kills/terminate?id=" + user.id.to_s %>
 									<%= form_tag(url) do |f| %>
@@ -297,8 +297,8 @@
 		</div>
 			
 	<% else %>
-		<p> It is currently <%= DateTime.now.to_formatted_s(:long_ordinal) %>. </p>
-			<% if DateTime.now > @current_user.term_date %>
+		<p> It is currently <%= (DateTime.now.utc-7.hour).to_formatted_s(:long_ordinal) %>. </p>
+			<% if DateTime.now.utc-7.hour > @current_user.term_date %>
 				<p> You are currently a target for the terminators! </p>
 				<p> Kill your target as soon as possible before they kill you! </p>
 				<p> Your target is: <b><a href=<%= @current_user.target.profile_url %>><%= @current_user.target.full_name %></a></b>. <br>
