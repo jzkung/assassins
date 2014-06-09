@@ -1,6 +1,5 @@
 <% content_for :title, "Statistics" %>
 <div id="map-canvas"></div>
-
 <div id="markers">
 	<% @kills.each do |kill| %>
 		<div class="marker">
@@ -8,6 +7,7 @@
 			<div class="target"><%= kill.target.full_name %></div>
 			<div class="lat"><%= kill.lat%></div>
 			<div class="lng"><%= kill.lng %></div>
+			<div class="game"><%= kill.game.name %></div>
 		</div>
 	<% end %>
 </div>

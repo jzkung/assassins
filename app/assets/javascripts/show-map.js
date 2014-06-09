@@ -50,7 +50,8 @@ function addReminderMarkers(map) {
     var longitude = $(this).children('.lng').text();
     var assassin = $(this).children('.assassin').text();
     var target = $(this).children('.target').text();
-    var title = target + " killed by " + assassin;
+    var game = $(this).children('.game').text();
+    var title = "Game: " + game + ", " + target + " killed by " + assassin;
 
     var latLng = new google.maps.LatLng(latitude, longitude);
     placeMarker(title, latLng, map);
