@@ -6,13 +6,13 @@ class UserMailer < ActionMailer::Base
   	mail(to: @user.email, subject: "Welcome to Assassins!")
   end
 
-  def game_welcome(user)
+  def game_welcome(game, user)
   	@user = user
     @game = game
   	mail(to: @user.email, subject: "You Signed Up for a Game")
   end
 
-  def game_start(user)
+  def game_start(game, user)
   	@user = user
     @game = game
   	mail(to: @user.email, subject: "Assassins has Begun!")

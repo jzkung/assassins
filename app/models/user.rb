@@ -6,7 +6,6 @@ class User < ActiveRecord::Base
 	has_many :messages
 	scope :player, -> {where role: 'player'}
 	scope :admin, -> {where role: 'admin'}
-	scope :mod, -> {where role: 'mod'}
 
 	@password
 

@@ -6,7 +6,7 @@
 
 <% if session[:current_user_id].nil? %>
   	<% content_for :title, "Welcome to Assassins" %>
-  		<%= link_to 'Login', signin_path %>
+  		<p>Please <%= link_to 'login', signin_path %> using your Facebook account to join a game! Don't worry, we only need your public profile and email! :D</p>
 <% else %>
 	<% @current_user = User.find(session[:current_user_id]) %>
 	<% if @current_user.is_admin? %>
@@ -16,7 +16,7 @@
 	  		<p>You don't have any games right now. Make a <%= link_to "new game", controller: :games, action: :new %>!</p>
 	  	<% else %>
 	  		<% @current_games.each do |game| %>
-				<% users = game.players.order(:first_name) %>
+				<% users = game.players.where(:role => "player") %>
 			  	<p><b><%= game.name %></b></p>
 				<% if game.is_started? %>
 					<div class="row">
@@ -65,7 +65,11 @@
 					</div>
 
 					<!-- Kill Ring -->
-					<div class="row"><div class="col-md-3">
+					<div class="row">
+						<div class="col-md-12">
+							<p><b>Kill Ring</b> <font size="2em">(clockwise!)</font></p>
+						</div>
+						<div class="col-md-3" style="position:relative">
 						<% users.each do |user| %>
 							<% if user.status == "alive" %>
 								<% top = @total * 14 * (1 - Math.cos(user.killring_degrees)) %>
@@ -78,7 +82,8 @@
 							<% end %>
 						<% end %>
 						<br>
-					</div></div>
+						</div>
+					</div>
 				<% else %>
 					<div class="row"><div class="col-md-3">
 						<% url = "games/start?id=" + game.id.to_s %>
@@ -86,43 +91,46 @@
 			  				<button class="btn btn-lg btn-primary btn-block" type="submit">Start Game!</button>
 						<% end %>
 					</div></div>
+					<br>
 				<% end %>
-				<% if game.is_started then %>
-					<div class="row">
-						<p><b>Last few messages:</b></p>
-					</div>
-					<div class="row">
-						<% count = 0 %>
-						<% messages = game.messages.reverse_order %>
-						<% if !messages.nil? %>
-							<% messages.each do |message| %>
-								<% if !message.deleted?  && count < 4%>
-									<div class="col-md-3">
-										<h6>Time: <%= message.post_date.to_formatted_s(:long_ordinal) %></h6>
-										<b><%= message.content %></b><br>
-										<h6> Posted by: <%= message.player.full_name %></h6>
-										<% url = "messages/delete?id=" + message.id.to_s %>
-										<div class="form-container">
-											<%= form_tag(url) do |f| %>
-												<button class="btn btn-lg btn-primary btn-block" type="submit">Delete Post</button> <br>
-											<% end %>
-										</div>
-										<% count = count + 1 %>
+				<div class="row">
+					<div class="col-md-12"><p><b>Last few messages:</p></b></div>
+					<% count = 0 %>
+					<% messages = game.messages.reverse_order %>
+					<% if !messages.nil? %>
+						<% messages.each do |message| %>
+							<% if !message.deleted?  && count < 4%>
+								<div class="col-md-3">
+									Time: <%= message.post_date.to_formatted_s(:long_ordinal) %><br>
+									<b><%= message.content %></b><br>
+									Posted by: <%= message.player.full_name %><br><br>
+									<% url = "messages/delete?id=" + message.id.to_s %>
+									<div class="form-container">
+										<%= form_tag(url) do |f| %>
+											<button class="btn btn-lg btn-primary btn-block" type="submit">Delete Post</button> <br>
+										<% end %>
 									</div>
-								<% end %>
+									<% count = count + 1 %>
+								</div>
 							<% end %>
 						<% end %>
-					</div>
-				<% end %>
+					<% end %>
+					<% if count == 0 %>
+						<div class="col-md-12"><p>There are no messages posted yet.</p></div>
+					<% end %>
+				</div>
 			<% end %>
 	  	<% end %>
 		
 		<br>
 
 	  	<h3>Past Games</h3>
+	  	<% if @past_games.count == 0 %>
+	  		<p>There are no past games to show.</p>
+	  	<% end %>
 		<% @past_games.each do |game| %>
 			<p><b><%= game.name %></b></p>
-			<% users = game.players.order(:first_name) %>
+			<% users = game.players.where(:role => "player") %>
 			<div class="row">
 				<div class="col-md-4">
 					<p><b>Winner</b></p>
@@ -152,42 +160,49 @@
 					<% end %>
 				</div>
 			</div>
-				<div class="row">
-					<p><b>Last few messages:</b></p>
-				</div><div class="row">
-					<% count = 0 %>
-					<% messages = game.messages.reverse_order %>
-					<% if !messages.nil? %>
-						<% messages.each do |message| %>
-							<% if !message.deleted?  && count < 4%>
-								<div class="col-md-3">
-									<h6>Time: <%= message.post_date.to_formatted_s(:long_ordinal) %></h6>
-									<b><%= message.content %></b><br>
-									<h6> Posted by: <%= message.player.full_name %></h6>
-									<% url = "messages/delete?id=" + message.id.to_s %>
-									<div class="form-container">
-										<%= form_tag(url) do |f| %>
-											<button class="btn btn-lg btn-primary btn-block" type="submit">Delete Post</button> <br>
-										<% end %>
-									</div>
-									<% count = count + 1 %>
+			<div class="row">
+				<div class="col-md-12"><p><b>Last few messages:</b></p></div>
+			</div><div class="row">
+				<% count = 0 %>
+				<% messages = game.messages.reverse_order %>
+				<% if !messages.nil? %>
+					<% messages.each do |message| %>
+						<% if !message.deleted?  && count < 4%>
+							<div class="col-md-3">
+								Time: <%= message.post_date.to_formatted_s(:long_ordinal) %><br>
+								<b><%= message.content %></b><br>
+								Posted by: <%= message.player.full_name %><br><br>
+								<% url = "messages/delete?id=" + message.id.to_s %>
+								<div class="form-container">
+									<%= form_tag(url) do |f| %>
+										<button class="btn btn-lg btn-primary btn-block" type="submit">Delete Post</button> <br>
+									<% end %>
 								</div>
-							<% end %>
+								<% count = count + 1 %>
+							</div>
 						<% end %>
 					<% end %>
-				</div>
+				<% end %>
+				<% if count == 0 %>
+					<div class="col-md-12"><p>There were no messages posted for this game.</p></div>
+				<% end %>
+			</div>
 		<% end %>
 	<% elsif @current_user.game_id.blank? %>
+		<div class="row">
 		<p> You haven't signed up for a game yet.</p>
 			<p><%= link_to "Join a game", controller: :games, action: :join %> now! </p>
+		</div>
 
 	<% elsif !@current_user.game.is_started %>
+		<div class="row">
 		<p> Your game, <%= @current_user.game.name %>, has not started yet. </p>
 		<p> Prepare yourself for the battle. </p>
 		<p> You will receive an email when the game begins and can check here periodically for its status. </p>
 		<p> And don't forget your kill code: <b><%= @current_user.kill_code %>. </p>
+		</div>
 		<div class="row">
-			<br><br><b>Last few messages:</b>
+			<p><b>Last few messages:</b></p>
 		</div><div class="row">
 			<% count = 0 %>
 			<% messages = @current_user.game.messages.reverse_order %>
@@ -195,23 +210,24 @@
 				<% messages.each do |message| %>
 					<% if !message.deleted?  && count < 4%>
 						<div class="col-md-3">
-							<h6>Time: <%= message.post_date.to_formatted_s(:long_ordinal) %></h6>
-							<b><%= message.content %></b><br>
+							<p>Time: <%= message.post_date.to_formatted_s(:long_ordinal) %></p>
+							<p><b><%= message.content %></b></p>
 							<% count = count + 1 %>
 						</div>
 					<% end %>
 				<% end %>
 			<% end %>
 			<% if count == 0 %>
-				There are no messages! <%= link_to "Post a Message!", controller: :messages, action: :new %>
+				<p>There are no messages! <%= link_to "Post a Message!", controller: :messages, action: :new %></p>
 			<% end %>
 		</div>
 
 	<% elsif @current_user.status == "dead" %>
+		<div class="row">
 		<p> Thank you for playing assassins. </p>
 		<p> We wish you better luck in the next round. </p><br><br>
 		<% if @current_user.game.has_ended? then %>
-			<b><p> History of Kills for Your Game </p></b>
+			<p><b> History of Kills for Your Game </b></p></b>
 			<% @current_user.game.kills.each do |kill| %>
 				<p>
 				Assassin: <%= kill.assassin.full_name %><br>
@@ -221,8 +237,10 @@
 				</p>
 			<% end %>
 		<% end %>
+		</div>
+		
 		<div class="row">
-			<br><br><b>Last few messages:</b>
+			<p><b>Last few messages:</b></p>
 		</div><div class="row">
 			<% count = 0 %>
 			<% messages = @current_user.game.messages.reverse_order %>
@@ -230,23 +248,23 @@
 				<% messages.each do |message| %>
 					<% if !message.deleted?  && count < 4%>
 						<div class="col-md-3">
-							<h6>Time: <%= message.post_date.to_formatted_s(:long_ordinal) %></h6>
-							<b><%= message.content %></b><br>
+							<p>Time: <%= message.post_date.to_formatted_s(:long_ordinal) %></p>
+							<p><b><%= message.content %></b></p>
 							<% count = count + 1 %>
 						</div>
 					<% end %>
 				<% end %>
 			<% end %>
 			<% if count == 0 %>
-				There are no messages! <%= link_to "Post a Message!", controller: :messages, action: :new %>
+				<p>There are no messages! <%= link_to "Post a Message!", controller: :messages, action: :new %></p>
 			<% end %>
 		</div>
 
 	<% elsif @current_user.target == @current_user %>
-		<h3>
+		<div class="row">
 			<p>YOU WON!!</p>
 			<p>CONGRATULATIONS!!</p><br><br>
-			<b><p> History of Kills for Your Game </p></b>
+			<p><b> History of Kills for Your Game </b></p>
 			<% @current_user.game.kills.each do |kill| %>
 				<p>
 				Assassin: <%= kill.assassin.full_name %><br>
@@ -255,9 +273,10 @@
 				Description: <%= kill.description %>
 				</p>
 			<% end %>
-		</h3>
+			<br>
+		</div>
 		<div class="row">
-			<br><br><b>Last few messages:</b>
+			<p><b>Last few messages:</b></p>
 		</div><div class="row">
 			<% count = 0 %>
 			<% messages = @current_user.game.messages.reverse_order %>
@@ -265,15 +284,15 @@
 				<% messages.each do |message| %>
 					<% if !message.deleted?  && count < 4%>
 						<div class="col-md-3">
-							<h6>Time: <%= message.post_date.to_formatted_s(:long_ordinal) %></h6>
-							<b><%= message.content %></b><br>
+							<p>Time: <%= message.post_date.to_formatted_s(:long_ordinal) %></p>
+							<p><b><%= message.content %></b></p>
 							<% count = count + 1 %>
 						</div>
 					<% end %>
 				<% end %>
 			<% end %>
 			<% if count == 0 %>
-				There are no messages! <%= link_to "Post a Message!", controller: :messages, action: :new %>
+				<p>There are no messages! <%= link_to "Post a Message!", controller: :messages, action: :new %></p>
 			<% end %>
 		</div>
 			
@@ -295,7 +314,7 @@
 				<p> Kill your target to extend the deadline! </p>
 			<% end %>
 		<div class="row">
-			<br><br><b>Last few messages:</b>
+			<p><b>Last few messages:</b></p>
 		</div><div class="row">
 			<% count = 0 %>
 			<% messages = @current_user.game.messages.reverse_order %>
@@ -303,15 +322,15 @@
 				<% messages.each do |message| %>
 					<% if !message.deleted?  && count < 4%>
 						<div class="col-md-3">
-							<h6>Time: <%= message.post_date.to_formatted_s(:long_ordinal) %></h6>
-							<b><%= message.content %></b><br>
+							<p>Time: <%= message.post_date.to_formatted_s(:long_ordinal) %></p>
+							<p><b><%= message.content %></b></p>
 							<% count = count + 1 %>
 						</div>
 					<% end %>
 				<% end %>
 			<% end %>
 			<% if count == 0 %>
-				There are no messages! <%= link_to "Post a Message!", controller: :messages, action: :new %>
+				<p>There are no messages! <%= link_to "Post a Message!", controller: :messages, action: :new %></p>
 			<% end %>
 		</div>
 	<% end %>

@@ -39,13 +39,14 @@ class KillsController < ApplicationController
           @current_user.save(:validate => false)
           @current_user.target.update(assassin: @current_user)
           @current_user.target.save(:validate => false)
-          if (@current_user.target == @current_user) then
-            @current_user.game.has_ended = true
+          @current_user.game.num_alive = @current_user.game.num_alive - 1
+          @current_user.game.save(:validate => false)
+          if (@current_user.game.has_ended?) then
             UserMailer.win_email(@current_user).deliver
           else
             UserMailer.kill_confirm(@kill, @current_user).deliver
           end
-          redirect_to controller: :kills, action: :history
+          redirect_to controller: :users, action: :index
         else
           @kill.errors.add(:code, ": Incorrect kill code")
           render "report"
@@ -82,15 +83,12 @@ class KillsController < ApplicationController
     @term_user.game.num_alive = @term_user.game.num_alive - 1
     @term_user.game.save(:validate => false)
 
-    if (@term_user.game.num_alive == 1) then #where is num_alive?
+    if (@term_user.game.has_ended?) then #where is num_alive?
       @winner = @term_user.target
-      @term_user.game.has_ended = true
-      @term_user.game.save(:validate => false)
       UserMailer.win_email(@winner).deliver
     else
       UserMailer.term_target(@term_user.assassin, @term).deliver
     end
-    @term_user.game.save(:validate => false)
     UserMailer.terminated(@term_user).deliver
   end
 

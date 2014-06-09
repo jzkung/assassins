@@ -8,17 +8,21 @@ class GamesController < ApplicationController
 	end
 
 	def create
-	    @game = Game.new
-	    @game.name = params[:game][:name]
-	    @game.code = params[:game][:code]
-	    @game.created_at = DateTime.now
-	    @game.updated_at = DateTime.now
-	    @game.is_started = false
-	    @game.has_ended = false
-	    @game.num_alive = 0
-	    @game.email = params[:game][:email]
-	    @game.term_hrs = params[:game][:term_hrs]
-	    if @game.save then
+	    game = Game.new
+	    game.name = params[:game][:name]
+	    game.code = params[:game][:code]
+	    game.created_at = DateTime.now
+	    game.updated_at = DateTime.now
+	    game.is_started = false
+	    game.has_ended = false
+	    game.num_alive = 0
+	    game.term_hrs = params[:game][:term_hrs]
+	    admins = User.where(:role => "admin")
+	    admins.each do |admin|
+	    	admin.game = game
+	    	admin.save(:validate => false)
+	    end
+	    if game.save then
 	      redirect_to controller: :users, action: :index
 	    else
 	      render "new"
@@ -81,7 +85,7 @@ class GamesController < ApplicationController
 	def start
 		@games = Game.all
 		@game = Game.find(params[:id])
-		users = Array.new(@game.players)
+		users = Array.new(@game.players.where(:role => 'player'))
 		num_users = users.length
 		if (num_users > 1)
 			first_index = Random.new.rand(0..num_users-1)
@@ -107,7 +111,7 @@ class GamesController < ApplicationController
 			curr_user.save(:validate => false)
 			first_user.save(:validate => false)
 
-			users = Array.new(@game.players)
+			users = Array.new(@game.players.where(:role => 'player'))
 			num_users = users.length
 			while num_users > 0
 				@curr_user = users[num_users - 1]

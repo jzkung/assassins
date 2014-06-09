@@ -38,17 +38,19 @@
 			<% end %>
 			<li><%= link_to "Message Board", controller: :messages, action: :message_board %></li>
 			<% if @current_user.is_admin? %>
-				<% if Game.where(:has_ended => false).count == 0 %>
+				<% if Game.where("num_alive != '1'").count == 0 %>
 					<li><%= link_to "New Game", controller: :games, action: :new %></li>
 				<% end %>
 				<li><%= link_to "Statistics", controller: :games, action: :statistics %></li>
-			<% elsif @current_user.game_id.blank? %>
+			<% elsif @current_user.game.has_ended? %>
 				<li><%= link_to "Join Game", controller: :games, action: :join %></li>
 			<% else %>
-				<% if @current_user.status == "alive" && !@current_user.game.has_ended? %>
-					<li><%= link_to "Report Kill", controller: :kills, action: :report %></li>
+				<% if !@current_user.game.has_ended? && @current_user.game.is_started %>
+					<% if @current_user.status == "alive" &&  %>
+						<li><%= link_to "Report Kill", controller: :kills, action: :report %></li>
+					<% end %>
+					<li><%= link_to "Kill History", controller: :kills, action: :history %></li>
 				<% end %>
-				<li><%= link_to "Kill History", controller: :kills, action: :history %></li>
 			<% end %>
 		<% else %>
 			<li><%= link_to "Login!", signin_path %></li>

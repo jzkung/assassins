@@ -6,7 +6,7 @@
   	<% end %>
 <% end %>
 
-<% @game.players.each do |user| %>
+<% @game.players.where(:role => 'player').each do |user| %>
 	<p><%= user.full_name %>, Target: <%= user.target.full_name %>, Assassin: <%= user.assassin.full_name %></p>
 <% end %>
 <br>

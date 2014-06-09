@@ -3,70 +3,38 @@ class LoadData < ActiveRecord::Migration
     # Create initial users.
     down
 
-    game2 = Game.new(:name => "GameTest5_19", :code => "game2", :is_started => false, :has_ended => false, :num_alive => 11, :term_hrs => 0.003)
+    game2 = Game.new(:name => "GameTest5_19", :code => "game2", :is_started => false, :has_ended => false, :num_alive => 2, :term_hrs => 0.003)
     game2.save(:validate => false)
 
     # salt = rand()
     simon = User.new(:first_name => "Simon", :last_name => "Shachter", :name => "Simon Shachter", :email => "simonys@stanford.edu", :role => "admin", :status => "alive", :provider => 'facebook', :uid => '10152113038792601', :image_url => 'http://graph.facebook.com/10152113038792601/picture?type=large')
+    simon.game = game2
     simon.save(:validate => false)
     jessica = User.new(:first_name => "Jessica", :last_name => "Kung", :name => "Jessica Kung", :email => "jzkung@stanford.edu", :role => "admin", :status => "alive", :provider => 'facebook', :uid => '10152272029596026', :image_url => 'http://graph.facebook.com/10152272029596026/picture?type=large')
+    jessica.game = game2
     jessica.save(:validate => false)
-    # # kat = User.new(:first_name => "Kat", :last_name => "Phan", :email => "kxphan@stanford.edu", :login => "kat", :phone_number => "6505751434", :role => "player", :status => "alive", :kill_code => "kat", :password => pass)
-    # # kat.game = game1
-    # # kat.save(:validate => false)
-    # # emily = User.new(:first_name => "Emily", :last_name => "Nguyen", :email => "emily@stanford.edu", :login => "emily", :phone_number => "6503916423", :role => "player", :status => "alive", :kill_code => "emily", :password => pass)
-    # # emily.game = game1
-    # # emily.save(:validate => false)
-    # # bradley = User.new(:first_name => "Bradley", :last_name => "Wo", :email => "bwo@stanford.edu", :login => "bradley", :phone_number => "6505751412", :role => "player", :status => "alive", :kill_code => "bradley", :password => pass)
-    # # bradley.game = game1
-    # # bradley.save(:validate => false)
-    # # princess = User.new(:first_name => "Princess", :last_name => "Umodu", :email => "princess@stanford.edu", :login => "princess", :phone_number => "6503916426", :role => "player", :status => "alive", :kill_code => "princess", :password => pass)
-    # # princess.game = game1
-    # # princess.save(:validate => false)
-    # simon2 = User.new(:first_name => "Simon2", :last_name => "Shachter2", :email => "simon.smiley@gmail.com", :login => "simon2", :phone_number => "6505751462", :role => "player", :status => "alive", :kill_code => "kill", :password => pass)
-    # simon2.game = game2
-    # simon2.save(:validate => false)
-    # simon3 = User.new(:first_name => "Simon3", :last_name => "Shachter3", :email => "simon.smiley@gmail.com", :login => "simon3", :phone_number => "6505751462", :role => "player", :status => "alive", :kill_code => "kill", :password => pass)
-    # simon3.game = game2
-    # simon3.save(:validate => false)
-    # simon4 = User.new(:first_name => "Simon4", :last_name => "Shachter4", :email => "simon.smiley@gmail.com", :login => "simon4", :phone_number => "6505751462", :role => "player", :status => "alive", :kill_code => "kill", :password => pass)
-    # simon4.game = game2
-    # simon4.save(:validate => false)
-    # simon5 = User.new(:first_name => "Simon5", :last_name => "Shachter5", :email => "simon.smiley@gmail.com", :login => "simon5", :phone_number => "6505751462", :role => "player", :status => "alive", :kill_code => "kill", :password => pass)
-    # simon5.game = game2
-    # simon5.save(:validate => false)
-    # simon6 = User.new(:first_name => "Simon6", :last_name => "Shachter6", :email => "simon.smiley@gmail.com", :login => "simon6", :phone_number => "6505751462", :role => "player", :status => "alive", :kill_code => "kill", :password => pass)
-    # simon6.game = game2
-    # simon6.save(:validate => false)
-    # simon7 = User.new(:first_name => "Simon7", :last_name => "Shachter7", :email => "simon.smiley@gmail.com", :login => "simon7", :phone_number => "6505751462", :role => "player", :status => "alive", :kill_code => "kill", :password => pass)
-    # simon7.game = game2
-    # simon7.save(:validate => false)
-    # simon8 = User.new(:first_name => "Simon8", :last_name => "Shachter8", :email => "simon.smiley@gmail.com", :login => "simon8", :phone_number => "6505751462", :role => "player", :status => "alive", :kill_code => "kill", :password => pass)
-    # simon8.game = game2
-    # simon8.save(:validate => false)
-    # simon9 = User.new(:first_name => "Simon9", :last_name => "Shachter9", :email => "simon.smiley@gmail.com", :login => "simon9", :phone_number => "6505751462", :role => "player", :status => "alive", :kill_code => "kill", :password => pass)
-    # simon9.game = game2
-    # simon9.save(:validate => false)
-    # simon10 = User.new(:first_name => "Simon10", :last_name => "Shachter10", :email => "simon.smiley@gmail.com", :login => "simon10", :phone_number => "6505751462", :role => "player", :status => "alive", :kill_code => "kill", :password => pass)
-    # simon10.game = game2
-    # simon10.save(:validate => false)
-    # simon11 = User.new(:first_name => "Simon11", :last_name => "Shachter11", :email => "simon.smiley@gmail.com", :login => "simon11", :phone_number => "6505751462", :role => "player", :status => "alive", :kill_code => "kill", :password => pass)
-    # simon11.game = game2
-    # simon11.save(:validate => false)
-    # simon12 = User.new(:first_name => "Simon12", :last_name => "Shachter12", :email => "simon.smiley@gmail.com", :login => "simon12", :phone_number => "6505751462", :role => "player", :status => "alive", :kill_code => "kill", :password => pass)
-    # simon12.game = game2
-    # simon12.save(:validate => false)
-
-
-    # kat.update(assassin: princess, target: princess)
-    # emily.update(assassin: bradley, target: kat)
-    # bradley.update(assassin: princess, target: emily)
-    # princess.update(assassin: kat, target: bradley)
-
-    # kat.save(:validate => false)
-    # emily.save(:validate => false)
-    # bradley.save(:validate => false)
+    xin = User.new(:first_name => "Xinxin", :last_name => "Xin", :name => "Xinxin Xin", :email => "aethereal.star@gmail.com", :role => "player", :status => "alive", :kill_code => "kill", :provider => 'facebook', :uid => '713213705401523', :image_url => 'http://graph.facebook.com/713213705401523/picture?type=large', :profile_url => 'https://www.facebook.com/713213705401523')
+    xin.game = game2
+    xin.save(:validate => false)
+    stari = User.new(:first_name => "Stari", :last_name => "Xin", :name => "Stari Xin", :email => "starixin@yahoo.com", :role => "player", :status => "alive", :kill_code => "kill", :provider => 'facebook', :uid => '241125379416448', :image_url => 'http://graph.facebook.com/241125379416448/picture?type=large', :profile_url => 'https://www.facebook.com/241125379416448')
+    stari.game = game2
+    stari.save(:validate => false)
+    # simone = User.new(:first_name => "Simone", :last_name => "Yamawaki", :name => "Simone Yamawaki", :email => "simon@stanfordharmonics.com", :role => "player", :status => "alive", :kill_code => "kill", :provider => 'facebook', :uid => '1488558751376854', :image_url => 'http://graph.facebook.com/1488558751376854/picture?type=large', :profile_url => 'https://www.facebook.com/1488558751376854')
+    # simone.game = game2
+    # simone.save(:validate => false)
+    # princess = User.new(:first_name => "Princess", :last_name => "Umodu", :name => "Princess Umodu", :email => "xinnn@live.com", :role => "player", :status => "alive", :kill_code => "kill", :provider => 'facebook', :uid => '470592729754137', :image_url => 'http://graph.facebook.com/470592729754137/picture?type=large', :profile_url => 'https://www.facebook.com/470592729754137')
+    # princess.game = game2
     # princess.save(:validate => false)
+    # dhruti = User.new(:first_name => "Dhruti", :last_name => "Gopaluni", :name => "Dhruti Gopaluni", :email => "xinnn@live.com", :role => "player", :status => "alive", :kill_code => "kill", :provider => 'facebook', :uid => '808300952515603', :image_url => 'http://graph.facebook.com/808300952515603/picture?type=large', :profile_url => 'https://www.facebook.com/808300952515603')
+    # dhruti.game = game2
+    # dhruti.save(:validate => false)
+    # sophie = User.new(:first_name => "Sophie", :last_name => "Clark", :name => "Sophie Clark", :email => "xinnn@live.com", :role => "player", :status => "alive", :kill_code => "kill", :provider => 'facebook', :uid => '759988647365769', :image_url => 'http://graph.facebook.com/759988647365769/picture?type=large', :profile_url => 'https://www.facebook.com/759988647365769')
+    # sophie.game = game2
+    # sophie.save(:validate => false)
+    # emily = User.new(:first_name => "Emily", :last_name => "Nguyen", :name => "Emily Nguyen", :email => "xinnn@live.com", :role => "player", :status => "alive", :kill_code => "kill", :provider => 'facebook', :uid => '813487398661335', :image_url => 'http://graph.facebook.com/813487398661335/picture?type=large', :profile_url => 'https://www.facebook.com/813487398661335')
+    # emily.game = game2
+    # emily.save(:validate => false)
+    
   end
 
   def down

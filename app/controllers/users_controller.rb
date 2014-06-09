@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def index
-    @past_games = Game.where(:has_ended => true)
-    @current_games = Game.where(:has_ended => false)
+    @past_games = Game.where("num_alive = '1'")
+    @current_games = Game.where("num_alive != '1'")
 
     games = Game.all
     if !games.nil?
@@ -9,7 +9,7 @@ class UsersController < ApplicationController
         if game.is_started?
           count = 0;
           #players = User.all
-          players = game.players
+          players = game.players.where(:role => 'player')
           start_player = nil
           players.each do |player|
             if player.status == "alive" #&& player.game == game
