@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require_tree .
 //= require bootstrap.min
+//= require google-maps
 //= require maps
 //= require show-map
