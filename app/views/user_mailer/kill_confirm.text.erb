@@ -5,7 +5,7 @@ You're doing well! Keep going!
 
 You're next target is <%= @user.target.first_name %> <%= @user.target.last_name %>.
 
-Be sure to kill your new target in the next 24 hours starting now - <%= (DateTime.now.utc-7.hour).to_formatted_s(:long_ordinal) %>, or the terminators will come after you.
+Be sure to kill your new target in the next <%= @user.game.term_hrs %> hours starting now - <%= (DateTime.now.utc-7.hour).to_formatted_s(:long_ordinal) %>, or the terminators will come after you.
 
 Lastly, don't forget your kill code <%= @user.kill_code %>!
 

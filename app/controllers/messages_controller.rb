@@ -5,7 +5,9 @@ class MessagesController < ApplicationController
 
   def message_board
     if !session[:current_user_id].nil?
-      @messages = Message.all.reverse_order
+      @current_user = User.find(session[:current_user_id])
+      @user_game = @current_user.game
+      @messages = @user_game.messages.reverse_order
     end
   end
 

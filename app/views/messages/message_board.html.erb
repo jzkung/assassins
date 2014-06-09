@@ -13,7 +13,7 @@
 		<div class="form-container"><%= form_tag(url) do |f| %>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Post a Message</button> <br>
 		<% end %></div><br>
-		<!-- This is great except that it posts the messages in the wrong order-->
+		<p>Messages from your current game: <%= @user_game.name %></p>
 		<% @messages.each do |message| %> 
 			<% if !message.deleted? %>
 				<h6>Time: <%= message.post_date.to_formatted_s(:long_ordinal) %></h6>
