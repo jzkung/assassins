@@ -5,7 +5,7 @@
 		<div class="col-md-12">
 			<p><b>History</b></p>
 			<% @kills.each do |kill| %>
-				Game: <%= @current_user.game.name %> <br>
+				Game: <%= kill.game.name %> <br>
 				Assassin: <%= @current_user.full_name %> <br>
 				Target: <%= kill.target.full_name %> <br>
 				Time Killed: <%= kill.time_killed.to_formatted_s(:long_ordinal) %> <br>
