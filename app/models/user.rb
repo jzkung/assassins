@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 	      	user.last_name = auth['info']['last_name'] || ""
 	        user.name = auth['info']['name'] || ""
 	        user.email = auth['info']['email'] || ""
-	        user.image_url = auth['info']['image'] + "?type=large" || ""
+	        user.image_url = auth['info']['image'] || ""
 	        user.profile_url = "https://www.facebook.com/" + auth['uid']
 	        user.role = "player"
 	        user.status = "alive"
