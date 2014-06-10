@@ -2,6 +2,11 @@
 
     if (navigator.geolocation)
     {
+      navigator.geolocation.getCurrentPosition(function (position) {
+          alert(position.coords.latitude + ',' + position.coords.longitude);
+      }, function (error) {
+          alert(error.code);
+      }, {enableHighAccuracy: true, maximumAge: 0});
       navigator.geolocation.getCurrentPosition(showPosition);
     } else{
       $('.alert').innerHTML = "Geolocation is not supported by this browser.";
