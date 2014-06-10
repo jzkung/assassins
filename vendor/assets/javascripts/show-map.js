@@ -1,6 +1,6 @@
 var map = null;
 
-function initialize() {
+function initialize2() {
   map = new google.maps.Map(document.getElementById('map-canvas'), {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   });
@@ -59,5 +59,5 @@ function addReminderMarkers(map) {
 }
 
 $(document).ready(function() {
-  initialize();
+  initialize2();
 });
