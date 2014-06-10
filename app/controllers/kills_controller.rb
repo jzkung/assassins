@@ -27,8 +27,8 @@ class KillsController < ApplicationController
         @kill.assassin = @current_user.target.assassin
         @kill.code = params[:kill][:code]
         @kill.time_killed = DateTime.now.utc-7.hour
-        @kill.lat = "37.428258"#params[:lat] #37.428258 - latitude of Wallenberg
-        @kill.lng = "-122.16905"#params[:lng] #-122.16905 - longitude of Wallenberg
+        @kill.lat = params[:lat] #37.428258 - latitude of Wallenberg
+        @kill.lng = params[:lng] #-122.16905 - longitude of Wallenberg
         @kill.game = @current_user.game
         @kill.description = params[:kill][:description]
         if @kill.save(:validate => false) then

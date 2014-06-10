@@ -35,8 +35,8 @@
 			<li><%= link_to "(Logout)", signout_path %></li>
 			<% if !@current_user.game.nil? %>
 				<li><%= link_to "Rules", controller: :games, action: :rules %></li>
+				<li><%= link_to "Message Board", controller: :messages, action: :message_board %></li>
 			<% end %>
-			<li><%= link_to "Message Board", controller: :messages, action: :message_board %></li>
 			<% if @current_user.is_admin? %>
 				<% if Game.where("num_alive != '1'").count == 0 %>
 					<li><%= link_to "New Game", controller: :games, action: :new %></li>
