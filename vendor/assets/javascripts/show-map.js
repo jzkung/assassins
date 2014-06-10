@@ -1,5 +1,20 @@
 var map = null;
 
+function initialize() {
+
+  if (navigator.geolocation)
+  {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else{
+    $('.alert').innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  $('#lat').val(position.coords.latitude);
+  $('#lng').val(position.coords.longitude);
+}
+
 function initialize2() {
   map = new google.maps.Map(document.getElementById('map-canvas'), {
     mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -19,13 +34,6 @@ function initialize2() {
   $('#map-bound1-lng').val(bound1_lng);
   $('#map-bound2-lat').val(bound2_lat);
   $('#map-bound2-lng').val(bound2_lng);
-
-  if (navigator.geolocation)
-  {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else{
-    $('.alert').innerHTML = "Geolocation is not supported by this browser.";
-  }
 
   addReminderMarkers(map);
 }
@@ -59,5 +67,6 @@ function addReminderMarkers(map) {
 }
 
 $(document).ready(function() {
+  initialize();
   initialize2();
 });
